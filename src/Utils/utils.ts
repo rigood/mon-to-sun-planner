@@ -46,3 +46,10 @@ export function getPeriodString(datesOfWeek: string[]) {
 
   return startMonth + "." + startDay + " ~ " + endMonth + "." + endDay;
 }
+
+export function getDateString(date: string) {
+  const month = date.split("-")[1].replace(/(^0+)/, "");
+  const day = date.split("-")[2].replace(/(^0+)/, "");
+
+  return month + "." + day;
+}

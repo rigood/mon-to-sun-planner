@@ -7,5 +7,6 @@ declare module "styled-components" {
     subTextColor: string;
     themeColor: string;
     appTitleColor: string;
+    lineColor: string;
   }
 }

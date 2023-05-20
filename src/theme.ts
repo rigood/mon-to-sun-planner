@@ -6,4 +6,5 @@ export const lightTheme: DefaultTheme = {
   subTextColor: "#cccccc",
   themeColor: "#0094FF",
   appTitleColor: "#000000",
+  lineColor: "#f8f9fa",
 };

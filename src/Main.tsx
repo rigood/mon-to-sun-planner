@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import Icon from "./Components/Icon";
 import Day from "./Components/Day";
 import { getMonday, getDatesOfWeek, getPeriodString } from "./Utils/utils";
@@ -38,12 +38,23 @@ function Main() {
     setMonday(getMonday(new Date(e.target.value))!);
   };
 
-  const onDragEnd = () => {};
+  const onResetDate = () => {
+    setMonday(getMonday(new Date())!);
+  };
+
+  const onDragEnd = (result: DropResult) => {
+    console.log(result);
+    const { destination, source } = result;
+
+    if (!destination) return;
+  };
 
   return (
     <Wrapper>
       <Header>
-        <Title>Weekly Planner</Title>
+        <Title onClick={onResetDate} title="현재 시점으로 이동합니다.">
+          Weekly Planner
+        </Title>
         <Toolbar>
           <WeekDate>{periodString}</WeekDate>
           <WeekIcons>
@@ -52,21 +63,18 @@ function Main() {
                 icon="fa fa-chevron-left"
                 size="lg"
                 isHover
-                alignEnd
                 onClick={onPrevWeekClick}
               />
               <Icon
                 icon="fa fa-calendar-check"
                 size="lg"
                 isHover
-                alignEnd
                 onClick={onCalendarClick}
               />
               <Icon
                 icon="fa fa-chevron-right"
                 size="lg"
                 isHover
-                alignEnd
                 onClick={onNextWeekClick}
               />
             </Icons>
@@ -81,15 +89,13 @@ function Main() {
           </WeekIcons>
         </Toolbar>
       </Header>
-      <Planner>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <DayContainer>
-            {datesOfWeek.map((date) => (
-              <Day key={date} date={date} />
-            ))}
-          </DayContainer>
-        </DragDropContext>
-      </Planner>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Planner>
+          {datesOfWeek.map((date, index) => (
+            <Day key={date} date={date} index={index} />
+          ))}
+        </Planner>
+      </DragDropContext>
     </Wrapper>
   );
 }
@@ -97,13 +103,13 @@ function Main() {
 export default Main;
 
 const Wrapper = styled.div`
-  padding: 30px 30px 60px;
+  padding: 40px 30px;
 `;
 
 const Header = styled.header`
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 `;
 
 const Title = styled.h1`
@@ -111,6 +117,8 @@ const Title = styled.h1`
   font-size: 1.6rem;
   font-style: italic;
   margin-bottom: 5px;
+  user-select: none;
+  cursor: pointer;
 `;
 
 const Toolbar = styled.div`
@@ -123,6 +131,11 @@ const WeekDate = styled.h2`
   font-size: 4.8rem;
   font-weight: 800;
   line-height: 48px;
+
+  &::selection {
+    background-color: ${(props) => props.theme.textColor};
+    color: white;
+  }
 `;
 
 const WeekIcons = styled.div`
@@ -137,6 +150,7 @@ const Icons = styled.div`
 `;
 
 const Calendar = styled.div`
+  height: 0;
   input {
     width: 100%;
     height: 0;
@@ -145,9 +159,7 @@ const Calendar = styled.div`
   }
 `;
 
-const Planner = styled.div``;
-
-const DayContainer = styled.div`
+const Planner = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 `;

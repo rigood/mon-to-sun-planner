@@ -5,8 +5,7 @@ interface IconProps {
   color?: string;
   bgColor?: string;
   size?: "lg" | "sm";
-  ml?: number;
-  mr?: number;
+  mr?: string;
   isHover?: boolean;
   alignEnd?: boolean;
   onClick?: () => void;
@@ -17,7 +16,6 @@ function Icon({
   color,
   bgColor,
   size,
-  ml,
   mr,
   isHover,
   alignEnd,
@@ -28,7 +26,6 @@ function Icon({
       color={color}
       bgColor={bgColor}
       size={size}
-      ml={ml}
       mr={mr}
       isHover={isHover}
       alignEnd={alignEnd}
@@ -45,13 +42,12 @@ const Wrapper = styled.div<{
   color?: string;
   bgColor?: string;
   size?: string;
-  ml?: number;
-  mr?: number;
+  mr?: string;
   isHover?: boolean;
   alignEnd?: boolean;
 }>`
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
 
   display: flex;
@@ -61,7 +57,7 @@ const Wrapper = styled.div<{
   cursor: pointer;
 
   i {
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     transition: all 0.2s ease;
   }
 
@@ -99,5 +95,11 @@ const Wrapper = styled.div<{
     props.alignEnd &&
     css`
       align-items: end !important;
+    `}
+
+    ${(props) =>
+    props.mr &&
+    css`
+      margin-right: ${props.mr};
     `}
 `;
