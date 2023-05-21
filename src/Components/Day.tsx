@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { datesAtom, tasksAtom } from "../recoil";
 import { getDateString } from "../Utils/utils";
 import Icon from "./Icon";
@@ -35,13 +35,48 @@ function getDayInfo(index: number) {
 function Day({ date, index }: IDayProps) {
   const { day, color } = getDayInfo(index);
 
-  const allDates = useRecoilValue(datesAtom);
-  const allTasks = useRecoilValue(tasksAtom);
+  const [allDates, setDates] = useRecoilState(datesAtom);
+  const [allTasks, setTasks] = useRecoilState(tasksAtom);
 
   const currentDate = allDates[date];
   const currentDateTasks = currentDate?.taskIds?.map(
     (taskId) => allTasks[taskId]
   );
+
+  const onAddTaskClick = () => {
+    const input = prompt("추가");
+
+    if (input === "" || input === null) return;
+
+    const newTaskId = String(Date.now());
+
+    const newTask = {
+      id: newTaskId,
+      isDone: false,
+      content: input,
+    };
+
+    setTasks((allTasks) => {
+      return {
+        ...allTasks,
+        [newTaskId]: newTask,
+      };
+    });
+
+    setDates((allDates) => {
+      const currentDate = allDates[date];
+      const taskIds = [...currentDate.taskIds];
+      taskIds.push(newTaskId);
+
+      return {
+        ...allDates,
+        [date]: {
+          ...currentDate,
+          taskIds,
+        },
+      };
+    });
+  };
 
   return (
     <Wrapper>
@@ -50,14 +85,25 @@ function Day({ date, index }: IDayProps) {
           <strong>{day}</strong>
           <span>{getDateString(date)}</span>
         </Title>
-        <Icon icon="fa fa-plus" color={color} mr="5px" />
+        <Icon
+          icon="fa fa-plus"
+          color={color}
+          mr="5px"
+          onClick={onAddTaskClick}
+        />
       </Header>
       <Droppable droppableId={date}>
         {(provided, snapshot) => {
           return (
             <TaskList ref={provided.innerRef} {...provided.droppableProps}>
               {currentDateTasks?.map((task, index) => (
-                <Task key={task.id} task={task} index={index} date={date} />
+                <Task
+                  key={task.id}
+                  task={task}
+                  index={index}
+                  date={date}
+                  color={color}
+                />
               ))}
               {provided.placeholder}
             </TaskList>

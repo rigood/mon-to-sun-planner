@@ -8,14 +8,14 @@ interface ITaskProps {
     id: string;
     isDone: boolean;
     content: string;
-    color: string;
   };
   index: number;
   date: string;
+  color: string;
 }
 
-function Task({ task, index, date }: ITaskProps) {
-  const { id, isDone, content, color } = task;
+function Task({ task, index, date, color }: ITaskProps) {
+  const { id, isDone, content } = task;
 
   const setTasks = useSetRecoilState(tasksAtom);
   const setDates = useSetRecoilState(datesAtom);
@@ -85,6 +85,7 @@ function Task({ task, index, date }: ITaskProps) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             isDone={isDone}
+            color={color}
           >
             <IsDone onClick={onIsDoneClick}>
               <i
@@ -110,9 +111,10 @@ const IsDone = styled.div`
 
 const Content = styled.div`
   cursor: pointer;
+  flex-grow: 1;
 `;
 
-const Wrapper = styled.div<{ isDone: boolean }>`
+const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   display: flex;
   align-items: start;
   column-gap: 10px;
@@ -120,6 +122,7 @@ const Wrapper = styled.div<{ isDone: boolean }>`
   background-color: white;
   border-bottom: 1px solid ${(props) => props.theme.lineColor};
   font-size: 1.6rem;
+  transition: border-bottom 0.1s ease;
 
   ${(props) =>
     props.isDone &&
@@ -130,4 +133,8 @@ const Wrapper = styled.div<{ isDone: boolean }>`
         text-decoration: line-through;
       }
     `};
+
+  &:hover {
+    border-bottom-color: ${(props) => props.color};
+  }
 `;
