@@ -8,8 +8,8 @@ import Day from "./Components/Day";
 import { getMonday, getDatesOfWeek, getPeriodString } from "./Utils/utils";
 
 function Main() {
-  const currentMonday = getMonday(new Date())!;
-  const [monday, setMonday] = useState(currentMonday);
+  const [currentDay, setCurrentDay] = useState(new Date());
+  const [monday, setMonday] = useState(getMonday(currentDay)!);
 
   const datesOfWeek = getDatesOfWeek(monday);
   const periodString = getPeriodString(datesOfWeek);
@@ -37,10 +37,12 @@ function Main() {
   };
 
   const onPickCalendarDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentDay(new Date(e.target.value));
     setMonday(getMonday(new Date(e.target.value))!);
   };
 
   const onResetDate = () => {
+    setCurrentDay(new Date());
     setMonday(getMonday(new Date())!);
   };
 
@@ -149,7 +151,12 @@ function Main() {
       <DragDropContext onDragEnd={onDragEnd}>
         <Planner>
           {datesOfWeek.map((date, index) => (
-            <Day key={date} date={date} index={index} />
+            <Day
+              key={date}
+              date={date}
+              index={index}
+              isCurrentDay={currentDay.toISOString().split("T")[0] === date}
+            />
           ))}
         </Planner>
       </DragDropContext>

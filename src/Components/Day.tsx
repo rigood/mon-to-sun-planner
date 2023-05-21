@@ -9,6 +9,7 @@ import Task from "./Task";
 interface IDayProps {
   date: string;
   index: number;
+  isCurrentDay: boolean;
 }
 
 function getDayInfo(index: number) {
@@ -32,7 +33,7 @@ function getDayInfo(index: number) {
   }
 }
 
-function Day({ date, index }: IDayProps) {
+function Day({ date, index, isCurrentDay }: IDayProps) {
   const { day, color } = getDayInfo(index);
 
   const [allDates, setDates] = useRecoilState(datesAtom);
@@ -102,7 +103,12 @@ function Day({ date, index }: IDayProps) {
       <Droppable droppableId={date}>
         {(provided, snapshot) => {
           return (
-            <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+            <TaskList
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              color={color}
+              isCurrentDay={isCurrentDay}
+            >
               {currentDateTasks?.map((task, index) => (
                 <Task
                   key={task.id}
@@ -159,8 +165,9 @@ const Title = styled.div<{ color: string }>`
   }
 `;
 
-const TaskList = styled.div`
+const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
   min-height: 400px;
   background-color: ${(props) => props.theme.lineColor};
-  border-top: none;
+  outline: ${(props) =>
+    props.isCurrentDay ? `2px solid ${props.color}` : "none"};
 `;
