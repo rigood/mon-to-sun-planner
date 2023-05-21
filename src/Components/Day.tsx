@@ -64,7 +64,14 @@ function Day({ date, index }: IDayProps) {
     });
 
     setDates((allDates) => {
-      const currentDate = allDates[date];
+      let currentDate = allDates[date];
+      if (!currentDate) {
+        currentDate = {
+          id: date,
+          taskIds: [],
+        };
+      }
+
       const taskIds = [...currentDate.taskIds];
       taskIds.push(newTaskId);
 
