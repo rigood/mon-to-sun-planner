@@ -71,9 +71,7 @@ function Day({ date, index }: IDayProps) {
 export default Day;
 
 const Wrapper = styled.div`
-  &:not(:last-child) {
-    margin-right: 16px;
-  }
+  padding: 0px 8px;
 `;
 
 const Header = styled.div<{ color: string }>`
