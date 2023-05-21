@@ -52,7 +52,7 @@ function Day({ date, index }: IDayProps) {
         </Title>
         <Icon icon="fa fa-plus" color={color} mr="5px" />
       </Header>
-      <Droppable droppableId={String(index)}>
+      <Droppable droppableId={date}>
         {(provided, snapshot) => {
           return (
             <TaskList ref={provided.innerRef} {...provided.droppableProps}>

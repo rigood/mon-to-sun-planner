@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { useSetRecoilState } from "recoil";
+import { datesAtom } from "./recoil";
 import Icon from "./Components/Icon";
 import Day from "./Components/Day";
 import { getMonday, getDatesOfWeek, getPeriodString } from "./Utils/utils";
@@ -42,11 +44,66 @@ function Main() {
     setMonday(getMonday(new Date())!);
   };
 
+  const setDates = useSetRecoilState(datesAtom);
+
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
     const { destination, source } = result;
 
     if (!destination) return;
+
+    if (source.droppableId === destination.droppableId) {
+      // 같은 날짜 내에서 드래그앤드롭
+      setDates((allDates) => {
+        const currentDate = allDates[source.droppableId];
+        const taskIds = [...currentDate.taskIds];
+        const currentTask = taskIds[source.index];
+
+        taskIds.splice(source.index, 1);
+        taskIds.splice(destination?.index, 0, currentTask);
+
+        return {
+          ...allDates,
+          [source.droppableId]: {
+            ...currentDate,
+            taskIds,
+          },
+        };
+      });
+    }
+
+    if (source.droppableId !== destination.droppableId) {
+      // 다른 날짜 간 드래그앤드롭
+      setDates((allDates) => {
+        const currentDate = allDates[source.droppableId];
+
+        let destinationDate = allDates[destination.droppableId];
+        if (!destinationDate) {
+          destinationDate = {
+            id: destination.droppableId,
+            taskIds: [],
+          };
+        }
+
+        const currentTaskIds = [...currentDate.taskIds];
+        const currentTask = currentTaskIds[source.index];
+        currentTaskIds.splice(source.index, 1);
+
+        const destinationTaskIds = [...destinationDate.taskIds];
+        destinationTaskIds.splice(destination?.index, 0, currentTask);
+
+        return {
+          ...allDates,
+          [source.droppableId]: {
+            ...currentDate,
+            taskIds: currentTaskIds,
+          },
+          [destination.droppableId]: {
+            ...destinationDate,
+            taskIds: destinationTaskIds,
+          },
+        };
+      });
+    }
   };
 
   return (

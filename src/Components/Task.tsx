@@ -61,13 +61,13 @@ function Task({ task, index, date }: ITaskProps) {
       return newTasks;
     });
 
-    setDates((allDays) => {
-      const currentDate = allDays[date];
+    setDates((allDates) => {
+      const currentDate = allDates[date];
       const taskIds = [...currentDate.taskIds];
       taskIds.splice(index, 1);
 
       return {
-        ...allDays,
+        ...allDates,
         [date]: {
           ...currentDate,
           taskIds,
