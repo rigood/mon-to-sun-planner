@@ -131,6 +131,7 @@ export default Day;
 
 const Wrapper = styled.div`
   padding: 0px 8px;
+  padding-bottom: 30px;
 `;
 
 const Header = styled.div<{ color: string }>`
@@ -145,7 +146,7 @@ const Header = styled.div<{ color: string }>`
 const Title = styled.div<{ color: string }>`
   strong {
     font-family: "Montserrat Alternates", sans-serif;
-    font-size: 1.8rem;
+    font-size: 18px;
     font-weight: bold;
     font-style: italic;
     color: ${(props) => props.color};
@@ -159,14 +160,14 @@ const Title = styled.div<{ color: string }>`
 
   span {
     font-family: "Montserrat Alternates", sans-serif;
-    font-size: 1.2rem;
+    font-size: 12px;
     color: ${(props) => props.theme.subTextColor};
     user-select: none;
   }
 `;
 
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
-  min-height: 400px;
+  min-height: 300px;
   background-color: ${(props) => props.theme.lineColor};
   outline: ${(props) =>
     props.isCurrentDay ? `2px solid ${props.color}` : "none"};

@@ -57,7 +57,7 @@ const Wrapper = styled.div<{
   cursor: pointer;
 
   i {
-    font-size: 1.6rem;
+    font-size: 16px;
     transition: all 0.2s ease;
   }
 
@@ -79,7 +79,7 @@ const Wrapper = styled.div<{
       width: 48px;
       height: 48px;
       i {
-        font-size: 3.6rem;
+        font-size: 36px;
       }
     `}
 
@@ -87,7 +87,7 @@ const Wrapper = styled.div<{
     props.isHover &&
     css`
       &:hover {
-        color: ${(props) => props.theme.themeColor};
+        color: ${(props) => props.theme.hoverColor};
       }
     `}
 

@@ -113,14 +113,14 @@ const IsDoneCheckBox = styled.div`
   margin-right: 10px;
   cursor: pointer;
   i {
-    font-size: 1.3rem;
+    font-size: 13px;
   }
 `;
 
 const Content = styled.div`
   cursor: pointer;
   flex-grow: 1;
-  font-size: 1.4rem;
+  font-size: 14px;
 `;
 
 const EditBtn = styled.div`
@@ -137,7 +137,7 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   padding: 12px 8px;
   background-color: white;
   border-bottom: 1px solid ${(props) => props.theme.lineColor};
-  font-size: 1.6rem;
+  font-size: 16px;
 
   ${(props) =>
     props.isDone &&

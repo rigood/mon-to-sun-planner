@@ -175,12 +175,26 @@ export default Main;
 
 const Wrapper = styled.div`
   padding: 40px 30px;
+
+  @media (max-width: 640px) {
+    padding: 0;
+  }
 `;
 
 const Header = styled.header`
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+  background-color: ${(props) => props.theme.bgColor};
+
+  @media (max-width: 640px) {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    margin-bottom: 30px;
+    padding: 15px 5px 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
 `;
 
 const Title = styled.h1`
@@ -190,6 +204,10 @@ const Title = styled.h1`
   margin-bottom: 5px;
   user-select: none;
   cursor: pointer;
+
+  @media (max-width: 640px) {
+    margin-bottom: 0;
+  }
 `;
 
 const Toolbar = styled.div`
@@ -232,5 +250,18 @@ const Calendar = styled.div`
 
 const Planner = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+
+  @media (max-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 10px;
+  }
 `;

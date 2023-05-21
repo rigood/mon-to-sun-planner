@@ -5,8 +5,8 @@ declare module "styled-components" {
     bgColor: string;
     textColor: string;
     subTextColor: string;
-    themeColor: string;
     appTitleColor: string;
     lineColor: string;
+    hoverColor: string;
   }
 }

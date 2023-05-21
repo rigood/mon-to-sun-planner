@@ -22,6 +22,12 @@ ${reset};
 
 html{
   font-size: 62.5%;
+
+  @media (max-width: 640px){
+    &{
+      font-size: 50%;
+    }
+  }
 }
 
 body{
