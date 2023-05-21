@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
 import { tasksAtom, datesAtom } from "../recoil";
+import Icon from "./Icon";
 
 interface ITaskProps {
   task: {
@@ -20,7 +21,7 @@ function Task({ task, index, date, color }: ITaskProps) {
   const setTasks = useSetRecoilState(tasksAtom);
   const setDates = useSetRecoilState(datesAtom);
 
-  const onIsDoneClick = () => {
+  const toggleIsDone = () => {
     setTasks((allTasks) => {
       const currentTask = allTasks[id];
 
@@ -34,7 +35,9 @@ function Task({ task, index, date, color }: ITaskProps) {
     });
   };
 
-  const onContentClick = () => {
+  const editTask = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
     const input = prompt("수정", content);
 
     if (input === "" || input === null) return;
@@ -86,13 +89,17 @@ function Task({ task, index, date, color }: ITaskProps) {
             {...provided.dragHandleProps}
             isDone={isDone}
             color={color}
+            onClick={toggleIsDone}
           >
-            <IsDone onClick={onIsDoneClick}>
+            <IsDoneCheckBox>
               <i
                 className={isDone ? "fa fa-square-check" : "far fa-square"}
               ></i>
-            </IsDone>
-            <Content onClick={onContentClick}>{content}</Content>
+            </IsDoneCheckBox>
+            <Content>{content}</Content>
+            <EditBtn onClick={editTask}>
+              <i className="fa fa-pencil" />
+            </EditBtn>
           </Wrapper>
         );
       }}
@@ -102,7 +109,8 @@ function Task({ task, index, date, color }: ITaskProps) {
 
 export default Task;
 
-const IsDone = styled.div`
+const IsDoneCheckBox = styled.div`
+  margin-right: 10px;
   cursor: pointer;
   i {
     font-size: 1.3rem;
@@ -112,17 +120,24 @@ const IsDone = styled.div`
 const Content = styled.div`
   cursor: pointer;
   flex-grow: 1;
+  font-size: 1.4rem;
+`;
+
+const EditBtn = styled.div`
+  visibility: hidden;
+  margin-left: 5px;
+  i {
+    font-size: 1.3rem !important;
+  }
 `;
 
 const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   display: flex;
   align-items: start;
-  column-gap: 10px;
   padding: 12px 8px;
   background-color: white;
   border-bottom: 1px solid ${(props) => props.theme.lineColor};
   font-size: 1.6rem;
-  transition: border-bottom 0.1s ease;
 
   ${(props) =>
     props.isDone &&
@@ -136,5 +151,10 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
 
   &:hover {
     border-bottom-color: ${(props) => props.color};
+
+    ${EditBtn} {
+      visibility: visible;
+      cursor: pointer;
+    }
   }
 `;
