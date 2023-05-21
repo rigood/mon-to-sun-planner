@@ -1,8 +1,8 @@
+import React from "react";
 import styled, { css } from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
 import { tasksAtom, datesAtom } from "../recoil";
-import Icon from "./Icon";
 
 interface ITaskProps {
   task: {
@@ -107,7 +107,7 @@ function Task({ task, index, date, color }: ITaskProps) {
   );
 }
 
-export default Task;
+export default React.memo(Task);
 
 const IsDoneCheckBox = styled.div`
   margin-right: 10px;

@@ -1,4 +1,9 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "weekly-planner",
+});
 
 export interface ITaskAtom {
   [key: string]: {
@@ -14,24 +19,25 @@ export const tasksAtom = atom<ITaskAtom>({
     "task-1": {
       id: "task-1",
       isDone: true,
-      content: "청소하기",
+      content: "프로젝트 리팩토링",
     },
     "task-2": {
       id: "task-2",
       isDone: false,
-      content: "운동하기",
+      content: "헬스장 다녀오기",
     },
     "task-3": {
       id: "task-3",
       isDone: false,
-      content: "알바하기",
+      content: "모던JS 딥다이브 정리 ",
     },
     "task-4": {
       id: "task-4",
-      isDone: false,
+      isDone: true,
       content: "콘서트 티켓팅",
     },
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export interface IDateAtom {
@@ -41,16 +47,15 @@ export interface IDateAtom {
   };
 }
 
+const today = new Date().toISOString().split("T")[0];
+
 export const datesAtom = atom<IDateAtom>({
   key: "days",
   default: {
-    "2023-05-18": {
-      id: "2023-05-18",
-      taskIds: ["task-1", "task-2", "task-4"],
-    },
-    "2023-05-20": {
-      id: "2023-05-20",
-      taskIds: ["task-3"],
+    [today]: {
+      id: today,
+      taskIds: ["task-1", "task-2", "task-3", "task-4"],
     },
   },
+  effects_UNSTABLE: [persistAtom],
 });
