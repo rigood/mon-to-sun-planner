@@ -37,8 +37,15 @@ function Main() {
   };
 
   const onPickCalendarDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentDay(new Date(e.target.value));
-    setMonday(getMonday(new Date(e.target.value))!);
+    if (e.target.value) {
+      setCurrentDay(new Date(e.target.value));
+      setMonday(getMonday(new Date(e.target.value))!);
+    }
+
+    if (!e.target.value) {
+      setCurrentDay(new Date());
+      setMonday(getMonday(new Date())!);
+    }
   };
 
   const onResetDate = () => {
