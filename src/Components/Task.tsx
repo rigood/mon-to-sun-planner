@@ -149,7 +149,7 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
       }
     `};
 
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     &:hover {
       border-bottom-color: ${(props) => props.color};
 

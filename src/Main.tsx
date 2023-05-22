@@ -192,8 +192,12 @@ const Header = styled.header`
     top: 0;
     z-index: 999;
     margin-bottom: 30px;
-    padding: 15px 8px 10px 15px;
+    padding: 15px 15px 15px 20px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
+  @media (max-width: 320px) {
+    padding: 15px 5px 15px 15px;
   }
 `;
 
@@ -229,6 +233,11 @@ const WeekDate = styled.h2`
   @media (max-width: 640px) {
     font-size: 24px;
     line-height: 24px;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 20px;
+    line-height: 20px;
   }
 `;
 
