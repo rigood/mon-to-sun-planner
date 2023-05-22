@@ -257,7 +257,7 @@ const Icons = styled.div`
 `;
 
 const Calendar = styled.div`
-  text-align: center;
+  visibility: hidden;
   height: 0;
   input {
     width: 100%;

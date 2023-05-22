@@ -129,6 +129,10 @@ const EditBtn = styled.div`
   i {
     font-size: 14px;
   }
+
+  @media (hover: none) {
+    visibility: visible;
+  }
 `;
 
 const Wrapper = styled.div<{ isDone: boolean; color: string }>`
@@ -157,13 +161,6 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
         visibility: visible;
         cursor: pointer;
       }
-    }
-  }
-
-  @media (hover: none) {
-    ${EditBtn} {
-      visibility: visible;
-      cursor: pointer;
     }
   }
 `;
