@@ -140,7 +140,7 @@ const Header = styled.div<{ color: string }>`
   align-items: center;
   column-gap: 10px;
   padding-bottom: 5px;
-  border-bottom: 2px solid ${(props) => props.color};
+  border-bottom: 3px solid ${(props) => props.color};
 `;
 
 const Title = styled.div<{ color: string }>`
@@ -160,7 +160,7 @@ const Title = styled.div<{ color: string }>`
 
   span {
     font-family: "Montserrat Alternates", sans-serif;
-    font-size: 12px;
+    font-size: 14px;
     color: ${(props) => props.theme.subTextColor};
     user-select: none;
   }
@@ -169,6 +169,5 @@ const Title = styled.div<{ color: string }>`
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
   min-height: 300px;
   background-color: ${(props) => props.theme.lineColor};
-  outline: ${(props) =>
-    props.isCurrentDay ? `2px solid ${props.color}` : "none"};
+  border-inline: 1px solid ${(props) => props.theme.lineColor};
 `;

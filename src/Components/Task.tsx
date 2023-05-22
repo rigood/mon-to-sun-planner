@@ -113,7 +113,7 @@ const IsDoneCheckBox = styled.div`
   margin-right: 10px;
   cursor: pointer;
   i {
-    font-size: 13px;
+    font-size: 14px;
   }
 `;
 
@@ -127,7 +127,7 @@ const EditBtn = styled.div`
   visibility: hidden;
   margin-left: 5px;
   i {
-    font-size: 1.3rem !important;
+    font-size: 14px;
   }
 `;
 
@@ -149,9 +149,18 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
       }
     `};
 
-  &:hover {
-    border-bottom-color: ${(props) => props.color};
+  @media (hover: hover) {
+    &:hover {
+      border-bottom-color: ${(props) => props.color};
 
+      ${EditBtn} {
+        visibility: visible;
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media (hover: none) {
     ${EditBtn} {
       visibility: visible;
       cursor: pointer;

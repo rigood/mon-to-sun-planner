@@ -20,15 +20,6 @@ ${reset};
   box-sizing: border-box;
 }
 
-html{
-  font-size: 62.5%;
-
-  @media (max-width: 640px){
-    &{
-      font-size: 50%;
-    }
-  }
-}
 
 body{
   font-family: "pretendard";

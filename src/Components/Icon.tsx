@@ -81,13 +81,23 @@ const Wrapper = styled.div<{
       i {
         font-size: 36px;
       }
+
+      @media (max-width: 640px) {
+        width: 24px;
+        height: 24px;
+        i {
+          font-size: 18px;
+        }
+      }
     `}
 
     ${(props) =>
     props.isHover &&
     css`
-      &:hover {
-        color: ${(props) => props.theme.hoverColor};
+      @media (hover: hover) {
+        &:hover {
+          color: ${(props) => props.theme.hoverColor};
+        }
       }
     `}
 

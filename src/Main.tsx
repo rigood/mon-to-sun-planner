@@ -192,21 +192,21 @@ const Header = styled.header`
     top: 0;
     z-index: 999;
     margin-bottom: 30px;
-    padding: 15px 5px 10px 20px;
+    padding: 15px 8px 10px 15px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   }
 `;
 
 const Title = styled.h1`
   font-family: "Montserrat Alternates", sans-serif;
-  font-size: 1.6rem;
+  font-size: 16px;
   font-style: italic;
   margin-bottom: 5px;
   user-select: none;
   cursor: pointer;
 
   @media (max-width: 640px) {
-    margin-bottom: 0;
+    font-size: 12px;
   }
 `;
 
@@ -217,13 +217,18 @@ const Toolbar = styled.div`
 
 const WeekDate = styled.h2`
   font-family: "Montserrat Alternates", sans-serif;
-  font-size: 4.8rem;
+  font-size: 48px;
   font-weight: 800;
   line-height: 48px;
 
   &::selection {
     background-color: ${(props) => props.theme.textColor};
     color: white;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 24px;
+    line-height: 24px;
   }
 `;
 
@@ -236,9 +241,14 @@ const Icons = styled.div`
   display: flex;
   align-items: center;
   column-gap: 40px;
+
+  @media (max-width: 640px) {
+    column-gap: 20px;
+  }
 `;
 
 const Calendar = styled.div`
+  text-align: center;
   height: 0;
   input {
     width: 100%;
