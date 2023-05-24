@@ -5,6 +5,7 @@ export const lightTheme: DefaultTheme = {
   textColor: "#000000",
   subTextColor: "#cccccc",
   appTitleColor: "#000000",
-  lineColor: "#f8f9fa",
+  taskDoneBgColor: "#f8f9fa",
+  lineColor: "#e9ecef",
   hoverColor: "#d9d9d9",
 };

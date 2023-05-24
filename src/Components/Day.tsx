@@ -44,7 +44,9 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
     (taskId) => allTasks[taskId]
   );
 
-  const addTask = () => {
+  const addTask = (isDraggingOver: boolean) => {
+    if (isDraggingOver) return;
+
     const input = prompt("추가");
 
     if (input === "" || input === null) return;
@@ -93,7 +95,12 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
           <strong>{day}</strong>
           <span>{getDateString(date)}</span>
         </Title>
-        <Icon icon="fa fa-plus" color={color} mr="5px" onClick={addTask} />
+        <Icon
+          icon="fa fa-plus"
+          color={color}
+          mr="5px"
+          onClick={() => addTask(false)}
+        />
       </Header>
       <Droppable droppableId={date}>
         {(provided, snapshot) => {
@@ -103,6 +110,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
               {...provided.droppableProps}
               color={color}
               isCurrentDay={isCurrentDay}
+              onClick={() => addTask(snapshot.isDraggingOver)}
             >
               {currentDateTasks?.map((task, index) => (
                 <Task
@@ -125,6 +133,8 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
 export default Day;
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 0px 8px;
   padding-bottom: 30px;
 `;
@@ -162,7 +172,7 @@ const Title = styled.div<{ color: string }>`
 `;
 
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
-  min-height: 300px;
-  background-color: ${(props) => props.theme.lineColor};
-  border-inline: 1px solid ${(props) => props.theme.lineColor};
+  flex-grow: 1;
+  background-color: ${(props) => props.theme.taskDoneBgColor};
+  cursor: pointer;
 `;

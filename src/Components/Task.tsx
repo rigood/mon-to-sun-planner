@@ -21,7 +21,9 @@ function Task({ task, index, date, color }: ITaskProps) {
   const setTasks = useSetRecoilState(tasksAtom);
   const setDates = useSetRecoilState(datesAtom);
 
-  const toggleIsDone = () => {
+  const toggleIsDone = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
     setTasks((allTasks) => {
       const currentTask = allTasks[id];
 
@@ -147,7 +149,8 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   ${(props) =>
     props.isDone &&
     css`
-      opacity: 0.2;
+      background-color: ${(props) => props.theme.taskDoneBgColor};
+      color: rgba(0, 0, 0, 0.2);
 
       ${Content} {
         text-decoration: line-through;
