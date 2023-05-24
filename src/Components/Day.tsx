@@ -90,7 +90,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
 
   return (
     <Wrapper>
-      <Header color={color}>
+      <Header color={color} isCurrentDay={isCurrentDay}>
         <Title color={color}>
           <strong>{day}</strong>
           <span>{getDateString(date)}</span>
@@ -139,13 +139,14 @@ const Wrapper = styled.div`
   padding-bottom: 30px;
 `;
 
-const Header = styled.div<{ color: string }>`
+const Header = styled.div<{ color: string; isCurrentDay: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   column-gap: 10px;
   padding-bottom: 5px;
-  border-bottom: 3px solid ${(props) => props.color};
+  border-bottom: ${(props) =>
+    !props.isCurrentDay && `3px solid ${props.color}`};
 `;
 
 const Title = styled.div<{ color: string }>`
@@ -173,6 +174,9 @@ const Title = styled.div<{ color: string }>`
 
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
   flex-grow: 1;
-  background-color: ${(props) => props.theme.taskDoneBgColor};
+  background-color: ${(props) =>
+    props.isCurrentDay ? props.color + "40" : props.color + "10"};
+  outline: ${(props) => props.isCurrentDay && `3px solid ${props.color}`};
+
   cursor: pointer;
 `;
