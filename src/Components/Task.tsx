@@ -118,20 +118,21 @@ const IsDoneCheckBox = styled.div`
 `;
 
 const Content = styled.div`
-  cursor: pointer;
   flex-grow: 1;
   font-size: 14px;
+  cursor: pointer;
 `;
 
 const EditBtn = styled.div`
-  visibility: hidden;
   margin-left: 5px;
+  cursor: pointer;
+
   i {
     font-size: 14px;
   }
 
-  @media (hover: none) {
-    visibility: visible;
+  @media (hover: hover) and (pointer: fine) {
+    visibility: hidden;
   }
 `;
 
