@@ -270,21 +270,21 @@ const Calendar = styled.div`
 const Planner = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(350px, auto);
+  grid-auto-rows: minmax(336.8px, auto);
 
   @media (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(250px, auto);
+    grid-auto-rows: minmax(245.2px, auto);
   }
 
   @media (max-width: 960px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(200px, auto);
+    grid-auto-rows: minmax(199.4px, auto);
   }
 
   @media (max-width: 640px) {
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: minmax(150px, auto);
+    grid-auto-rows: minmax(153.6px, auto);
     padding: 0 10px;
   }
 `;
