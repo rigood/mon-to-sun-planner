@@ -1,33 +1,42 @@
-export function getMonday(date: Date) {
-  const newDate = new Date(date.getTime());
-  const dayNumber = newDate.getDay();
-  const day = newDate.getDate();
+export function getMonday(inputDate: Date) {
+  const dateCopy = new Date(inputDate);
+  const date = dateCopy.getDate();
+  const day = dateCopy.getDay();
 
-  switch (dayNumber) {
+  switch (day) {
     case 0: // 일요일
-      return new Date(newDate.setDate(day - 6));
+      dateCopy.setDate(date - 6);
+      break;
     case 1: // 월요일
-      return date;
+      break;
     case 2: // 화요일
-      return new Date(newDate.setDate(day - 1));
+      dateCopy.setDate(date - 1);
+      break;
     case 3: // 수요일
-      return new Date(newDate.setDate(day - 2));
+      dateCopy.setDate(date - 2);
+      break;
     case 4: // 목요일
-      return new Date(newDate.setDate(day - 3));
+      dateCopy.setDate(date - 3);
+      break;
     case 5: // 금요일
-      return new Date(newDate.setDate(day - 4));
+      dateCopy.setDate(date - 4);
+      break;
     case 6: // 토요일
-      return new Date(newDate.setDate(day - 5));
+      dateCopy.setDate(date - 5);
+      break;
   }
+
+  return dateCopy;
 }
 
-export function getDatesOfWeek(date: Date) {
+export function getDatesOfWeek(inputMonday: Date) {
+  const dateCopy = new Date(inputMonday);
+
   let result = [];
-  let currentDate = new Date(getMonday(date)!.getTime());
 
   for (let i = 0; i < 7; i++) {
-    result.push(currentDate.toISOString().split("T")[0]);
-    currentDate.setDate(currentDate.getDate() + 1);
+    result.push(dateCopy.toISOString().split("T")[0]);
+    dateCopy.setDate(dateCopy.getDate() + 1);
   }
 
   return result;

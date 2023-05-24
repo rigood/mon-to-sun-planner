@@ -16,17 +16,17 @@ function Main() {
 
   const onPrevWeekClick = () => {
     setMonday((currentMonday) => {
-      const day = currentMonday.getDate();
-      const prevMonday = new Date(currentMonday.setDate(day - 7));
-      return prevMonday;
+      const dateCopy = new Date(currentMonday);
+      dateCopy.setDate(dateCopy.getDate() - 7);
+      return dateCopy;
     });
   };
 
   const onNextWeekClick = () => {
     setMonday((currentMonday) => {
-      const day = currentMonday.getDate();
-      const nextMonday = new Date(currentMonday.setDate(day + 7));
-      return nextMonday;
+      const dateCopy = new Date(currentMonday);
+      dateCopy.setDate(dateCopy.getDate() + 7);
+      return dateCopy;
     });
   };
 
@@ -36,7 +36,7 @@ function Main() {
     calendarRef?.current?.showPicker();
   };
 
-  const onPickCalendarDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCalendarDatePick = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setCurrentDay(new Date(e.target.value));
       setMonday(getMonday(new Date(e.target.value))!);
@@ -48,7 +48,7 @@ function Main() {
     }
   };
 
-  const onResetDate = () => {
+  const resetDate = () => {
     setCurrentDay(new Date());
     setMonday(getMonday(new Date())!);
   };
@@ -118,7 +118,7 @@ function Main() {
   return (
     <Wrapper>
       <Header>
-        <Title onClick={onResetDate} title="현재 시점으로 이동합니다.">
+        <Title onClick={resetDate} title="현재 날짜로 이동합니다.">
           Weekly Planner
         </Title>
         <Toolbar>
@@ -149,7 +149,7 @@ function Main() {
                 type="date"
                 id="calendar"
                 ref={calendarRef}
-                onChange={onPickCalendarDate}
+                onChange={onCalendarDatePick}
               />
             </Calendar>
           </WeekIcons>

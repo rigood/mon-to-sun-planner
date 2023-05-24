@@ -44,7 +44,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
     (taskId) => allTasks[taskId]
   );
 
-  const onAddTaskClick = () => {
+  const addTask = () => {
     const input = prompt("추가");
 
     if (input === "" || input === null) return;
@@ -93,12 +93,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
           <strong>{day}</strong>
           <span>{getDateString(date)}</span>
         </Title>
-        <Icon
-          icon="fa fa-plus"
-          color={color}
-          mr="5px"
-          onClick={onAddTaskClick}
-        />
+        <Icon icon="fa fa-plus" color={color} mr="5px" onClick={addTask} />
       </Header>
       <Droppable droppableId={date}>
         {(provided, snapshot) => {

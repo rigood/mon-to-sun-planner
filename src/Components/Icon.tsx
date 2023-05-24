@@ -7,20 +7,10 @@ interface IconProps {
   size?: "lg" | "sm";
   mr?: string;
   isHover?: boolean;
-  alignEnd?: boolean;
   onClick?: () => void;
 }
 
-function Icon({
-  icon,
-  color,
-  bgColor,
-  size,
-  mr,
-  isHover,
-  alignEnd,
-  onClick,
-}: IconProps) {
+function Icon({ icon, color, bgColor, size, mr, isHover, onClick }: IconProps) {
   return (
     <Wrapper
       color={color}
@@ -28,7 +18,6 @@ function Icon({
       size={size}
       mr={mr}
       isHover={isHover}
-      alignEnd={alignEnd}
       onClick={onClick}
     >
       <i className={icon}></i>
@@ -44,7 +33,6 @@ const Wrapper = styled.div<{
   size?: string;
   mr?: string;
   isHover?: boolean;
-  alignEnd?: boolean;
 }>`
   width: 24px;
   height: 24px;
@@ -107,12 +95,6 @@ const Wrapper = styled.div<{
           color: ${(props) => props.theme.hoverColor};
         }
       }
-    `}
-
-    ${(props) =>
-    props.alignEnd &&
-    css`
-      align-items: end !important;
     `}
 
     ${(props) =>
