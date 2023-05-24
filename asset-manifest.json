@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/weekly-planner/static/js/main.bacb7d4b.js",
+    "main.js": "/weekly-planner/static/js/main.67091d29.js",
     "static/media/Pretendard-Regular.woff": "/weekly-planner/static/media/Pretendard-Regular.32d8ced04df3d294cb98.woff",
     "static/media/Pretendard-Regular.woff2": "/weekly-planner/static/media/Pretendard-Regular.c2d6e5ccab1998598e2a.woff2",
     "index.html": "/weekly-planner/index.html",
-    "main.bacb7d4b.js.map": "/weekly-planner/static/js/main.bacb7d4b.js.map"
+    "main.67091d29.js.map": "/weekly-planner/static/js/main.67091d29.js.map"
   },
   "entrypoints": [
-    "static/js/main.bacb7d4b.js"
+    "static/js/main.67091d29.js"
   ]
 }
