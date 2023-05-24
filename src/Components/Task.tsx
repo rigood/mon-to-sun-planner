@@ -123,10 +123,13 @@ const Content = styled.div`
   flex-grow: 1;
   font-size: 14px;
   cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
 `;
 
 const EditBtn = styled.div`
   margin-left: 5px;
+  padding: 0 5px;
   cursor: pointer;
 
   i {
@@ -141,7 +144,7 @@ const EditBtn = styled.div`
 const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   display: flex;
   align-items: start;
-  padding: 12px 8px;
+  padding: 12px 10px;
   background-color: white;
   border-bottom: 1px solid ${(props) => props.theme.lineColor};
   font-size: 16px;
