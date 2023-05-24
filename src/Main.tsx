@@ -5,7 +5,12 @@ import { useSetRecoilState } from "recoil";
 import { datesAtom } from "./recoil";
 import Icon from "./Components/Icon";
 import Day from "./Components/Day";
-import { getMonday, getDatesOfWeek, getPeriodString } from "./Utils/utils";
+import {
+  getMonday,
+  getDatesOfWeek,
+  getPeriodString,
+  getLocalTimeString,
+} from "./Utils/utils";
 
 function Main() {
   const [currentDay, setCurrentDay] = useState(new Date());
@@ -162,7 +167,7 @@ function Main() {
               key={date}
               date={date}
               index={index}
-              isCurrentDay={currentDay.toISOString().split("T")[0] === date}
+              isCurrentDay={getLocalTimeString(currentDay) === date}
             />
           ))}
         </Planner>

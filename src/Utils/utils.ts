@@ -31,11 +31,12 @@ export function getMonday(inputDate: Date) {
 
 export function getDatesOfWeek(inputMonday: Date) {
   const dateCopy = new Date(inputMonday);
+  console.log("inputMonday", dateCopy);
 
   let result = [];
 
   for (let i = 0; i < 7; i++) {
-    result.push(dateCopy.toISOString().split("T")[0]);
+    result.push(getLocalTimeString(dateCopy));
     dateCopy.setDate(dateCopy.getDate() + 1);
   }
 
@@ -60,4 +61,18 @@ export function getDateString(date: string) {
   const day = date.split("-")[2].replace(/(^0+)/, "");
 
   return month + "." + day;
+}
+
+export function getLocalTimeString(inputDate: Date) {
+  const year = inputDate.getFullYear();
+  const month = inputDate.getMonth() + 1;
+  const date = inputDate.getDate();
+
+  return (
+    year +
+    "-" +
+    (month < 9 ? "0" + month : month) +
+    "-" +
+    (date < 9 ? "0" + date : date)
+  );
 }

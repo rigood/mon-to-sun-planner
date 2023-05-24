@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import { getLocalTimeString } from "./Utils/utils";
 
 const { persistAtom } = recoilPersist({
   key: "weekly-planner",
@@ -47,7 +48,7 @@ export interface IDateAtom {
   };
 }
 
-const today = new Date().toISOString().split("T")[0];
+const today = getLocalTimeString(new Date());
 
 export const datesAtom = atom<IDateAtom>({
   key: "days",
