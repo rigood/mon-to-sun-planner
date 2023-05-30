@@ -60,3 +60,8 @@ export const datesAtom = atom<IDateAtom>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const modalAtom = atom<boolean | string>({
+  key: "modal",
+  default: false,
+});

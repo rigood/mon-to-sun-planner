@@ -9,5 +9,6 @@ declare module "styled-components" {
     taskDoneBgColor: string;
     lineColor: string;
     hoverColor: string;
+    modalBgColor: string;
   }
 }

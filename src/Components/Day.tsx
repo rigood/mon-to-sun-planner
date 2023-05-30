@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
-import { datesAtom, tasksAtom } from "../recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { datesAtom, modalAtom, tasksAtom } from "../recoil";
 import { getDateString } from "../Utils/utils";
 import Icon from "./Icon";
 import Task from "./Task";
@@ -43,6 +43,13 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
   const currentDateTasks = currentDate?.taskIds?.map(
     (taskId) => allTasks[taskId]
   );
+
+  const setModal = useSetRecoilState(modalAtom);
+
+  const openAddTaskModal = (isDraggingOver: boolean) => {
+    if (isDraggingOver) return;
+    setModal("add");
+  };
 
   const addTask = (isDraggingOver: boolean) => {
     if (isDraggingOver) return;
@@ -98,8 +105,9 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
         <Icon
           icon="fa fa-plus"
           color={color}
+          size="sm"
           mr="5px"
-          onClick={() => addTask(false)}
+          onClick={() => openAddTaskModal(false)}
         />
       </Header>
       <Droppable droppableId={date}>
@@ -110,7 +118,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
               {...provided.droppableProps}
               color={color}
               isCurrentDay={isCurrentDay}
-              onClick={() => addTask(snapshot.isDraggingOver)}
+              onClick={() => openAddTaskModal(snapshot.isDraggingOver)}
             >
               {currentDateTasks?.map((task, index) => (
                 <Task

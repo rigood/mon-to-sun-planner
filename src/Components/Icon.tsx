@@ -34,20 +34,10 @@ const Wrapper = styled.div<{
   mr?: string;
   isHover?: boolean;
 }>`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
-
-  i {
-    font-size: 16px;
-    transition: all 0.2s ease;
-  }
 
   ${(props) =>
     props.color &&
@@ -71,21 +61,23 @@ const Wrapper = styled.div<{
       }
 
       @media (max-width: 640px) {
-        width: 24px;
-        height: 24px;
-        i {
-          font-size: 18px;
-        }
-      }
-
-      @media (max-width: 640px) {
         width: 20px;
         height: 20px;
         i {
           font-size: 16px;
         }
       }
-    `}
+    `} 
+
+${(props) =>
+    props.size === "sm" &&
+    css`
+      width: 24px;
+      height: 24px;
+      i {
+        font-size: 16px;
+      }
+    `} 
 
     ${(props) =>
     props.isHover &&

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useSetRecoilState } from "recoil";
-import { datesAtom } from "./recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { datesAtom, modalAtom } from "./recoil";
 import Icon from "./Components/Icon";
 import Day from "./Components/Day";
 import {
@@ -11,6 +11,7 @@ import {
   getPeriodString,
   getLocalTimeString,
 } from "./Utils/utils";
+import Modal from "./Components/Modal";
 
 function Main() {
   const [currentDay, setCurrentDay] = useState(new Date());
@@ -120,6 +121,8 @@ function Main() {
     }
   };
 
+  const [modal, setModal] = useRecoilState(modalAtom);
+
   return (
     <Wrapper>
       <Header>
@@ -172,6 +175,7 @@ function Main() {
           ))}
         </Planner>
       </DragDropContext>
+      <Modal modal={modal} closeModal={() => setModal(false)} />
     </Wrapper>
   );
 }
