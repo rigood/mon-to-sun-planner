@@ -115,7 +115,7 @@ function Main() {
     }
   };
 
-  const [modal, setModal] = useRecoilState(modalAtom);
+  const [modalKind, setModalKind] = useRecoilState(modalAtom);
 
   return (
     <Wrapper>
@@ -169,7 +169,7 @@ function Main() {
           ))}
         </Planner>
       </DragDropContext>
-      <Modal modal={modal} closeModal={() => setModal(false)} />
+      <Modal kind={modalKind} closeModal={() => setModalKind("")} />
     </Wrapper>
   );
 }

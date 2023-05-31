@@ -1,23 +1,30 @@
+import React from "react";
 import ReactDom from "react-dom";
 import styled, { keyframes } from "styled-components";
 import AddModal from "./AddModal";
 import EditModal from "./EditModal";
 
 interface IModalProps {
-  modal: boolean | string;
+  kind: string;
   closeModal: () => void;
 }
 
-function Modal({ modal, closeModal }: IModalProps) {
-  if (!modal) return null;
+interface IModals {
+  [key: string]: React.ReactElement;
+}
+
+const MODALS: IModals = {
+  add: <AddModal />,
+  edit: <EditModal />,
+};
+
+function Modal({ kind, closeModal }: IModalProps) {
+  if (!kind) return null;
 
   return ReactDom.createPortal(
     <>
       <Overlay onClick={closeModal}></Overlay>
-      <Content>
-        {modal === "add" ? <AddModal /> : null}
-        {modal === "edit" ? <EditModal /> : null}
-      </Content>
+      <Content>{MODALS[kind]}</Content>
     </>,
     document.getElementById("portal")!
   );
