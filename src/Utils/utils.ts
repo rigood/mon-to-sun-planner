@@ -31,7 +31,6 @@ export function getMonday(inputDate: Date) {
 
 export function getDatesOfWeek(inputMonday: Date) {
   const dateCopy = new Date(inputMonday);
-  console.log("inputMonday", dateCopy);
 
   let result = [];
 
@@ -43,6 +42,22 @@ export function getDatesOfWeek(inputMonday: Date) {
   return result;
 }
 
+// ex) 2023-05-31
+export function getLocalTimeString(inputDate: Date) {
+  const year = inputDate.getFullYear();
+  const month = inputDate.getMonth() + 1;
+  const date = inputDate.getDate();
+
+  return (
+    year +
+    "-" +
+    (month < 10 ? "0" + month : month) +
+    "-" +
+    (date < 10 ? "0" + date : date)
+  );
+}
+
+// ex) 5.29 ~ 6.4
 export function getPeriodString(datesOfWeek: string[]) {
   const startDate = datesOfWeek[0];
   const endDate = datesOfWeek[6];
@@ -56,23 +71,10 @@ export function getPeriodString(datesOfWeek: string[]) {
   return startMonth + "." + startDay + " ~ " + endMonth + "." + endDay;
 }
 
+// ex) 5.31
 export function getDateString(date: string) {
   const month = date.split("-")[1].replace(/(^0+)/, "");
   const day = date.split("-")[2].replace(/(^0+)/, "");
 
   return month + "." + day;
-}
-
-export function getLocalTimeString(inputDate: Date) {
-  const year = inputDate.getFullYear();
-  const month = inputDate.getMonth() + 1;
-  const date = inputDate.getDate();
-
-  return (
-    year +
-    "-" +
-    (month < 9 ? "0" + month : month) +
-    "-" +
-    (date < 9 ? "0" + date : date)
-  );
 }

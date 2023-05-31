@@ -14,23 +14,22 @@ import {
 import Modal from "./Components/Modal";
 
 function Main() {
-  const [currentDay, setCurrentDay] = useState(new Date());
-  const [monday, setMonday] = useState(getMonday(currentDay)!);
-
+  const [currentDay, setCurrentDay] = useState(() => new Date());
+  const monday = getMonday(currentDay);
   const datesOfWeek = getDatesOfWeek(monday);
   const periodString = getPeriodString(datesOfWeek);
 
   const onPrevWeekClick = () => {
-    setMonday((currentMonday) => {
-      const dateCopy = new Date(currentMonday);
+    setCurrentDay((currentDay) => {
+      const dateCopy = new Date(currentDay);
       dateCopy.setDate(dateCopy.getDate() - 7);
       return dateCopy;
     });
   };
 
   const onNextWeekClick = () => {
-    setMonday((currentMonday) => {
-      const dateCopy = new Date(currentMonday);
+    setCurrentDay((currentDay) => {
+      const dateCopy = new Date(currentDay);
       dateCopy.setDate(dateCopy.getDate() + 7);
       return dateCopy;
     });
@@ -42,21 +41,16 @@ function Main() {
     calendarRef?.current?.showPicker();
   };
 
-  const onCalendarDatePick = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCalendarDateClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value) {
       setCurrentDay(new Date(e.target.value));
-      setMonday(getMonday(new Date(e.target.value))!);
-    }
-
-    if (!e.target.value) {
+    } else {
       setCurrentDay(new Date());
-      setMonday(getMonday(new Date())!);
     }
   };
 
   const resetDate = () => {
     setCurrentDay(new Date());
-    setMonday(getMonday(new Date())!);
   };
 
   const setDates = useSetRecoilState(datesAtom);
@@ -157,7 +151,7 @@ function Main() {
                 type="date"
                 id="calendar"
                 ref={calendarRef}
-                onChange={onCalendarDatePick}
+                onChange={onCalendarDateClick}
               />
             </Calendar>
           </WeekIcons>

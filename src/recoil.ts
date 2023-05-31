@@ -51,7 +51,7 @@ export interface IDateAtom {
 const today = getLocalTimeString(new Date());
 
 export const datesAtom = atom<IDateAtom>({
-  key: "days",
+  key: "dates",
   default: {
     [today]: {
       id: today,
