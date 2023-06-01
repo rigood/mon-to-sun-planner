@@ -2,7 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { useSetRecoilState } from "recoil";
-import { tasksAtom, datesAtom } from "../recoil";
+import { tasksState } from "../store/tasksState";
+import useModal from "../hooks/useModal";
+import { MODAL_TYPES } from "../GlobalModal";
 
 interface ITaskProps {
   task: {
@@ -18,8 +20,7 @@ interface ITaskProps {
 function Task({ task, index, date, color }: ITaskProps) {
   const { id, isDone, content } = task;
 
-  const setTasks = useSetRecoilState(tasksAtom);
-  const setDates = useSetRecoilState(datesAtom);
+  const setTasks = useSetRecoilState(tasksState);
 
   const toggleIsDone = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -37,47 +38,20 @@ function Task({ task, index, date, color }: ITaskProps) {
     });
   };
 
-  const editTask = (e: React.MouseEvent<HTMLDivElement>) => {
+  const { openModal, closeModal } = useModal();
+
+  const openEditTaskModal = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
 
-    const input = prompt("수정", content);
-
-    if (input === "" || input === null) return;
-
-    setTasks((allTasks) => {
-      const currentTask = allTasks[id];
-
-      return {
-        ...allTasks,
-        [id]: {
-          ...currentTask,
-          content: input,
-        },
-      };
-    });
-  };
-
-  const deleteTask = () => {
-    setTasks((allTasks) => {
-      const allTasksArray = Object.entries(allTasks);
-      const newTasksArray = allTasksArray.filter((task) => task[0] !== id);
-      const newTasks = Object.fromEntries(newTasksArray);
-
-      return newTasks;
-    });
-
-    setDates((allDates) => {
-      const currentDate = allDates[date];
-      const taskIds = [...currentDate.taskIds];
-      taskIds.splice(index, 1);
-
-      return {
-        ...allDates,
-        [date]: {
-          ...currentDate,
-          taskIds,
-        },
-      };
+    openModal({
+      modalType: MODAL_TYPES.EDIT_TASK,
+      modalProps: {
+        id,
+        date,
+        index,
+        content,
+        closeModal,
+      },
     });
   };
 
@@ -99,7 +73,7 @@ function Task({ task, index, date, color }: ITaskProps) {
               ></i>
             </IsDoneCheckBox>
             <Content>{content}</Content>
-            <EditBtn onClick={editTask}>
+            <EditBtn onClick={openEditTaskModal}>
               <i className="fa fa-pencil" />
             </EditBtn>
           </Wrapper>

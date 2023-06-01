@@ -3,10 +3,15 @@ import styled from "styled-components";
 interface IButtonProps {
   children: string;
   type: string;
+  onClick: () => void;
 }
 
-function Button({ children, type }: IButtonProps) {
-  return <Wrapper type={type}>{children}</Wrapper>;
+function Button({ children, type, onClick }: IButtonProps) {
+  return (
+    <Wrapper type={type} onClick={onClick}>
+      {children}
+    </Wrapper>
+  );
 }
 
 export default Button;

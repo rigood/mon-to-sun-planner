@@ -1,17 +1,16 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { datesAtom, modalAtom } from "./recoil";
-import Icon from "./Components/Icon";
-import Day from "./Components/Day";
+import { useSetRecoilState } from "recoil";
+import { datesState } from "./store/datesState";
 import {
   getMonday,
   getDatesOfWeek,
   getPeriodString,
   getLocalTimeString,
-} from "./Utils/utils";
-import Modal from "./Components/Modal";
+} from "./utils/utils";
+import Icon from "./components/Icon";
+import Day from "./components/Day";
 
 function Main() {
   const [currentDay, setCurrentDay] = useState(() => new Date());
@@ -53,7 +52,7 @@ function Main() {
     setCurrentDay(new Date());
   };
 
-  const setDates = useSetRecoilState(datesAtom);
+  const setDates = useSetRecoilState(datesState);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -115,8 +114,6 @@ function Main() {
     }
   };
 
-  const [modalKind, setModalKind] = useRecoilState(modalAtom);
-
   return (
     <Wrapper>
       <Header>
@@ -169,7 +166,6 @@ function Main() {
           ))}
         </Planner>
       </DragDropContext>
-      <Modal kind={modalKind} closeModal={() => setModalKind("")} />
     </Wrapper>
   );
 }

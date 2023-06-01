@@ -3,9 +3,10 @@ import reset from "styled-reset";
 import { lightTheme } from "./theme";
 
 import Main from "./Main";
+import GlobalModal from "./GlobalModal";
 
-import PretendardWoff2 from "./Fonts/Pretendard-Regular.woff2";
-import PretendardWoff from "./Fonts/Pretendard-Regular.woff";
+import PretendardWoff2 from "./assets/fonts/Pretendard-Regular.woff2";
+import PretendardWoff from "./assets/fonts/Pretendard-Regular.woff";
 
 const GlobalStyle = createGlobalStyle`
 ${reset};
@@ -36,6 +37,7 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
       <Main />
+      <GlobalModal />
     </ThemeProvider>
   );
 }

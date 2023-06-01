@@ -1,12 +1,11 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { getLocalTimeString } from "./Utils/utils";
 
 const { persistAtom } = recoilPersist({
   key: "weekly-planner",
 });
 
-export interface ITaskAtom {
+export interface ITaskState {
   [key: string]: {
     id: string;
     isDone: boolean;
@@ -14,7 +13,7 @@ export interface ITaskAtom {
   };
 }
 
-export const tasksAtom = atom<ITaskAtom>({
+export const tasksState = atom<ITaskState>({
   key: "tasks",
   default: {
     "task-1": {
@@ -39,29 +38,4 @@ export const tasksAtom = atom<ITaskAtom>({
     },
   },
   effects_UNSTABLE: [persistAtom],
-});
-
-export interface IDateAtom {
-  [key: string]: {
-    id: string;
-    taskIds: string[];
-  };
-}
-
-const today = getLocalTimeString(new Date());
-
-export const datesAtom = atom<IDateAtom>({
-  key: "dates",
-  default: {
-    [today]: {
-      id: today,
-      taskIds: ["task-1", "task-2", "task-3", "task-4"],
-    },
-  },
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const modalAtom = atom<string>({
-  key: "modal",
-  default: "",
 });

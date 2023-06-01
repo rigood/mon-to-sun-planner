@@ -1,16 +1,13 @@
 import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { datesAtom, modalAtom, tasksAtom } from "../recoil";
-import { getDateString } from "../Utils/utils";
+import { useRecoilValue } from "recoil";
+import { datesState } from "../store/datesState";
+import { tasksState } from "../store/tasksState";
+import useModal from "../hooks/useModal";
+import { MODAL_TYPES } from "../GlobalModal";
+import { getDateString } from "../utils/utils";
 import Icon from "./Icon";
 import Task from "./Task";
-
-interface IDayProps {
-  date: string;
-  index: number;
-  isCurrentDay: boolean;
-}
 
 function getDayInfo(index: number) {
   switch (index) {
@@ -33,65 +30,34 @@ function getDayInfo(index: number) {
   }
 }
 
+interface IDayProps {
+  date: string;
+  index: number;
+  isCurrentDay: boolean;
+}
+
 function Day({ date, index, isCurrentDay }: IDayProps) {
   const { day, color } = getDayInfo(index);
 
-  const [allDates, setDates] = useRecoilState(datesAtom);
-  const [allTasks, setTasks] = useRecoilState(tasksAtom);
+  const allDates = useRecoilValue(datesState);
+  const allTasks = useRecoilValue(tasksState);
 
   const currentDate = allDates[date];
   const currentDateTasks = currentDate?.taskIds?.map(
     (taskId) => allTasks[taskId]
   );
 
-  const setModal = useSetRecoilState(modalAtom);
+  const { openModal, closeModal } = useModal();
 
   const openAddTaskModal = (isDraggingOver: boolean) => {
     if (isDraggingOver) return;
-    setModal("add");
-  };
 
-  const addTask = (isDraggingOver: boolean) => {
-    if (isDraggingOver) return;
-
-    const input = prompt("추가");
-
-    if (input === "" || input === null) return;
-
-    const newTaskId = String(Date.now());
-
-    const newTask = {
-      id: newTaskId,
-      isDone: false,
-      content: input,
-    };
-
-    setTasks((allTasks) => {
-      return {
-        ...allTasks,
-        [newTaskId]: newTask,
-      };
-    });
-
-    setDates((allDates) => {
-      let currentDate = allDates[date];
-      if (!currentDate) {
-        currentDate = {
-          id: date,
-          taskIds: [],
-        };
-      }
-
-      const taskIds = [...currentDate.taskIds];
-      taskIds.push(newTaskId);
-
-      return {
-        ...allDates,
-        [date]: {
-          ...currentDate,
-          taskIds,
-        },
-      };
+    openModal({
+      modalType: MODAL_TYPES.ADD_TASK,
+      modalProps: {
+        date: date,
+        closeModal,
+      },
     });
   };
 
