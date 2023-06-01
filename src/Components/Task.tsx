@@ -14,10 +14,11 @@ interface ITaskProps {
   };
   index: number;
   date: string;
+  day: string;
   color: string;
 }
 
-function Task({ task, index, date, color }: ITaskProps) {
+function Task({ task, index, date, day, color }: ITaskProps) {
   const { id, isDone, content } = task;
 
   const setTasks = useSetRecoilState(tasksState);
@@ -48,6 +49,7 @@ function Task({ task, index, date, color }: ITaskProps) {
       modalProps: {
         id,
         date,
+        day,
         index,
         content,
         closeModal,
@@ -126,7 +128,6 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   ${(props) =>
     props.isDone &&
     css`
-      background-color: ${(props) => props.theme.taskDoneBgColor};
       color: rgba(0, 0, 0, 0.2);
 
       ${Content} {

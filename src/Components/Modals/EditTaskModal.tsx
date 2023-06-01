@@ -8,6 +8,7 @@ import { datesState } from "../../store/datesState";
 export interface IEditTaskModal {
   id: string;
   date: string;
+  day: string;
   index: number;
   content: string;
   closeModal: () => void;
@@ -16,6 +17,7 @@ export interface IEditTaskModal {
 function EditTaskModal({
   id,
   date,
+  day,
   index,
   content: initialContent,
   closeModal,
@@ -92,7 +94,7 @@ function EditTaskModal({
         </DeleteBtn>
       </Header>
       <Calendar>
-        <input type="date" value={date} readOnly></input>
+        {date} {day}
       </Calendar>
       <Content
         autoFocus

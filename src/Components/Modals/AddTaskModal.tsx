@@ -7,10 +7,11 @@ import { datesState } from "../../store/datesState";
 
 export interface IAddTaskModal {
   date: string;
+  day: string;
   closeModal: () => void;
 }
 
-function AddTaskModal({ date: initialDate, closeModal }: IAddTaskModal) {
+function AddTaskModal({ date: initialDate, day, closeModal }: IAddTaskModal) {
   const [date, setDate] = useState(initialDate);
   const [content, setContent] = useState("");
 
@@ -67,11 +68,7 @@ function AddTaskModal({ date: initialDate, closeModal }: IAddTaskModal) {
         <Title>Task 추가</Title>
       </Header>
       <Calendar>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        ></input>
+        {date} {day}
       </Calendar>
       <Content
         autoFocus

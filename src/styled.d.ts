@@ -6,7 +6,7 @@ declare module "styled-components" {
     textColor: string;
     subTextColor: string;
     appTitleColor: string;
-    taskDoneBgColor: string;
+    dayBgColor: string;
     lineColor: string;
     hoverColor: string;
     modalBgColor: string;

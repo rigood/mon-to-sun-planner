@@ -12,19 +12,19 @@ import Task from "./Task";
 function getDayInfo(index: number) {
   switch (index) {
     case 0:
-      return { day: "MON", color: "#E61A73" };
+      return { day: "월요일", color: "#E61A73" };
     case 1:
-      return { day: "TUE", color: "#EDAE13" };
+      return { day: "화요일", color: "#EDAE13" };
     case 2:
-      return { day: "WED", color: "#0BBAB3" };
+      return { day: "수요일", color: "#0BBAB3" };
     case 3:
-      return { day: "THU", color: "#0764A1" };
+      return { day: "목요일", color: "#0764A1" };
     case 4:
-      return { day: "FRI", color: "#25A2DA" };
+      return { day: "금요일", color: "#25A2DA" };
     case 5:
-      return { day: "SAT", color: "#8146C4" };
+      return { day: "토요일", color: "#8146C4" };
     case 6:
-      return { day: "SUN", color: "#E97EC2" };
+      return { day: "일요일", color: "#E97EC2" };
     default:
       return { day: "", color: "#000000" };
   }
@@ -55,7 +55,8 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
     openModal({
       modalType: MODAL_TYPES.ADD_TASK,
       modalProps: {
-        date: date,
+        date,
+        day,
         closeModal,
       },
     });
@@ -92,6 +93,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
                   task={task}
                   index={index}
                   date={date}
+                  day={day}
                   color={color}
                 />
               ))}
@@ -119,17 +121,15 @@ const Header = styled.div<{ color: string }>`
   align-items: center;
   column-gap: 10px;
   padding-bottom: 5px;
-  border-bottom: ${(props) => `3px solid ${props.color}`};
+  border-bottom: ${(props) => `5px solid ${props.color}`};
 `;
 
 const Title = styled.div<{ color: string }>`
   strong {
-    font-family: "Montserrat Alternates", sans-serif;
     font-size: 18px;
     font-weight: bold;
-    font-style: italic;
     color: ${(props) => props.color};
-    margin-right: 10px;
+    margin-right: 5px;
 
     &::selection {
       background-color: ${(props) => props.color};
@@ -138,8 +138,7 @@ const Title = styled.div<{ color: string }>`
   }
 
   span {
-    font-family: "Montserrat Alternates", sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: ${(props) => props.theme.subTextColor};
 
     &::selection {
@@ -151,6 +150,6 @@ const Title = styled.div<{ color: string }>`
 
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
   flex-grow: 1;
-  background-color: ${(props) => props.color + "10"};
+  background-color: ${(props) => props.theme.dayBgColor};
   cursor: pointer;
 `;

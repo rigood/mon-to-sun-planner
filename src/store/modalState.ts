@@ -1,8 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { MODAL_TYPES } from "../GlobalModal";
-import { IAddTaskModal } from "../components/Modals/AddTaskModal";
-import { IEditTaskModal } from "../components/Modals/EditTaskModal";
 
 const { persistAtom } = recoilPersist({
   key: "weekly-planner",
@@ -10,12 +8,12 @@ const { persistAtom } = recoilPersist({
 
 export type TAddTaskModal = {
   modalType: typeof MODAL_TYPES.ADD_TASK;
-  modalProps: IAddTaskModal;
+  modalProps: any;
 };
 
 export type TEditTaskModal = {
   modalType: typeof MODAL_TYPES.EDIT_TASK;
-  modalProps: IEditTaskModal;
+  modalProps: any;
 };
 
 export type ModalType = TAddTaskModal | TEditTaskModal;
