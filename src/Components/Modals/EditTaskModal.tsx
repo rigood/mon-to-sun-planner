@@ -77,6 +77,12 @@ function EditTaskModal({
     closeModal();
   };
 
+  const moveCaretAtEnd = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    const tempValue = e.target.value;
+    e.target.value = "";
+    e.target.value = tempValue;
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -92,6 +98,7 @@ function EditTaskModal({
         autoFocus
         value={content}
         onChange={(e) => setContent(e.target.value)}
+        onFocus={moveCaretAtEnd}
       ></Content>
       <Buttons>
         <>
