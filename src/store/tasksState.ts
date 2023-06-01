@@ -29,7 +29,7 @@ export const tasksState = atom<ITaskState>({
     "task-3": {
       id: "task-3",
       isDone: false,
-      content: "모던JS 딥다이브 정리 ",
+      content: "모던JS 딥다이브 정리",
     },
     "task-4": {
       id: "task-4",

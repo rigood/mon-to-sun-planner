@@ -50,6 +50,7 @@ function Task({ task, index, date, day, color }: ITaskProps) {
         id,
         date,
         day,
+        color,
         index,
         content,
         closeModal,

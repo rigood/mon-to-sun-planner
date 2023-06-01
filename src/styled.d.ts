@@ -10,5 +10,6 @@ declare module "styled-components" {
     lineColor: string;
     hoverColor: string;
     modalBgColor: string;
+    buttonBgColor: string;
   }
 }

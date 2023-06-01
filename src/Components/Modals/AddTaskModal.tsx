@@ -8,10 +8,16 @@ import { datesState } from "../../store/datesState";
 export interface IAddTaskModal {
   date: string;
   day: string;
+  color: string;
   closeModal: () => void;
 }
 
-function AddTaskModal({ date: initialDate, day, closeModal }: IAddTaskModal) {
+function AddTaskModal({
+  date: initialDate,
+  day,
+  color,
+  closeModal,
+}: IAddTaskModal) {
   const [date, setDate] = useState(initialDate);
   const [content, setContent] = useState("");
 
@@ -21,6 +27,7 @@ function AddTaskModal({ date: initialDate, day, closeModal }: IAddTaskModal) {
   const addTask = () => {
     if (content === "") {
       alert("내용을 입력해주세요");
+      return;
     } else {
       const newTaskId = String(Date.now());
 
@@ -66,21 +73,22 @@ function AddTaskModal({ date: initialDate, day, closeModal }: IAddTaskModal) {
     <Wrapper>
       <Header>
         <Title>Task 추가</Title>
+        <CloseBtn onClick={closeModal}>
+          <i className="fa fa-x"></i>
+        </CloseBtn>
       </Header>
       <Calendar>
-        {date} {day}
+        {date} ({day})
       </Calendar>
       <Content
+        color={color}
         autoFocus
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></Content>
       <Buttons>
         <>
-          <Cancel type="cancel" onClick={closeModal}>
-            취소
-          </Cancel>
-          <Complete type="complete" onClick={addTask}>
+          <Complete onClick={addTask} color={color}>
             완료
           </Complete>
         </>
@@ -101,12 +109,24 @@ const Wrapper = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 7.5px;
+  margin-bottom: 5px;
 `;
 
 const Title = styled.h2`
   font-size: 20px;
   font-weight: bold;
+`;
+
+const CloseBtn = styled.div`
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    font-size: 18px;
+  }
 `;
 
 const Calendar = styled.div`
@@ -127,6 +147,7 @@ const Content = styled.textarea`
   font-family: inherit;
   font-size: inherit;
   padding: 10px;
+  background-color: ${(props) => props.color + "10"};
   border: none;
   outline: none;
   resize: none;
@@ -140,5 +161,4 @@ const Buttons = styled.div`
   column-gap: 20px;
 `;
 
-const Cancel = styled(Button)``;
 const Complete = styled(Button)``;

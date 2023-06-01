@@ -9,6 +9,7 @@ export interface IEditTaskModal {
   id: string;
   date: string;
   day: string;
+  color: string;
   index: number;
   content: string;
   closeModal: () => void;
@@ -18,6 +19,7 @@ function EditTaskModal({
   id,
   date,
   day,
+  color,
   index,
   content: initialContent,
   closeModal,
@@ -30,6 +32,7 @@ function EditTaskModal({
   const editTask = () => {
     if (content === "") {
       alert("내용을 입력해주세요");
+      return;
     } else {
       setTasks((allTasks) => {
         const currentTask = allTasks[id];
@@ -89,14 +92,15 @@ function EditTaskModal({
     <Wrapper>
       <Header>
         <Title>Task 편집</Title>
-        <DeleteBtn title="Task 삭제" onClick={deleteTask}>
-          <i className="fa fa-trash"></i>
-        </DeleteBtn>
+        <CloseBtn onClick={closeModal}>
+          <i className="fa fa-x"></i>
+        </CloseBtn>
       </Header>
       <Calendar>
-        {date} {day}
+        {date} ({day})
       </Calendar>
       <Content
+        color={color}
         autoFocus
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -104,10 +108,8 @@ function EditTaskModal({
       ></Content>
       <Buttons>
         <>
-          <Cancel type="cancel" onClick={closeModal}>
-            취소
-          </Cancel>
-          <Complete type="complete" onClick={editTask}>
+          <Cancel onClick={deleteTask}>삭제</Cancel>
+          <Complete color={color} onClick={editTask}>
             완료
           </Complete>
         </>
@@ -128,7 +130,8 @@ const Wrapper = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 7.5px;
+  align-items: center;
+  margin-bottom: 5px;
 `;
 
 const Title = styled.h2`
@@ -136,7 +139,7 @@ const Title = styled.h2`
   font-weight: bold;
 `;
 
-const DeleteBtn = styled.div`
+const CloseBtn = styled.div`
   width: 36px;
   height: 36px;
   cursor: pointer;
@@ -145,12 +148,6 @@ const DeleteBtn = styled.div`
   align-items: center;
   i {
     font-size: 18px;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: deeppink;
-    }
   }
 `;
 
@@ -172,6 +169,7 @@ const Content = styled.textarea`
   font-family: inherit;
   font-size: inherit;
   padding: 10px;
+  background-color: ${(props) => props.color + "10"};
   border: none;
   outline: none;
   resize: none;
@@ -181,7 +179,7 @@ const Content = styled.textarea`
 
 const Buttons = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   column-gap: 20px;
 `;
 

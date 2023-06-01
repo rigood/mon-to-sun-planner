@@ -43,7 +43,7 @@ function GlobalModal() {
     return ReactDom.createPortal(
       <>
         <Overlay onClick={() => setModal(null)}></Overlay>
-        <Content>
+        <Content color={modalProps.color}>
           <ModalComponent {...modalProps} />
         </Content>
       </>,
@@ -88,6 +88,7 @@ const Content = styled.div`
   max-width: 500px;
   height: 400px;
   background-color: ${(props) => props.theme.modalBgColor};
+  outline: 5px solid ${(props) => props.color};
   z-index: 9999;
   animation: ${slideIn};
   animation-duration: 0.3s;

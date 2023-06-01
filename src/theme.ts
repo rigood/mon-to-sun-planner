@@ -8,5 +8,6 @@ export const lightTheme: DefaultTheme = {
   dayBgColor: "#f8f9fa",
   lineColor: "#e9ecef",
   hoverColor: "#d9d9d9",
-  modalBgColor: "	#FFF0F5",
+  modalBgColor: "	#ffffff",
+  buttonBgColor: "red",
 };

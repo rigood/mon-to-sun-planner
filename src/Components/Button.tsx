@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 interface IButtonProps {
   children: string;
-  type: string;
+  color?: string;
   onClick: () => void;
 }
 
-function Button({ children, type, onClick }: IButtonProps) {
+function Button({ children, color, onClick }: IButtonProps) {
   return (
-    <Wrapper type={type} onClick={onClick}>
+    <Wrapper color={color} onClick={onClick}>
       {children}
     </Wrapper>
   );
@@ -16,18 +16,11 @@ function Button({ children, type, onClick }: IButtonProps) {
 
 export default Button;
 
-const Wrapper = styled.div<{ type: string }>`
+const Wrapper = styled.div`
   text-align: center;
   min-width: 100px;
   padding: 6px 10px;
-  background-color: ${(props) => {
-    switch (props.type) {
-      case "cancel":
-        return "gray";
-      case "complete":
-        return "deeppink";
-    }
-  }};
+  background-color: ${(props) => props.color || props.theme.buttonBgColor};
   color: white;
   cursor: pointer;
 `;

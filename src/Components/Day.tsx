@@ -57,6 +57,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
       modalProps: {
         date,
         day,
+        color,
         closeModal,
       },
     });
