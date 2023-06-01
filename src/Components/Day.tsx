@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
 import { useRecoilValue } from "recoil";
 import { datesState } from "../store/datesState";
@@ -86,7 +86,6 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
               {...provided.droppableProps}
               color={color}
               isCurrentDay={isCurrentDay}
-              onClick={() => openAddTaskModal(snapshot.isDraggingOver)}
             >
               {currentDateTasks?.map((task, index) => (
                 <Task
@@ -99,6 +98,13 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
                 />
               ))}
               {provided.placeholder}
+              <BlankArea
+                onClick={() => openAddTaskModal(snapshot.isDraggingOver)}
+              >
+                <AddBtn color={color}>
+                  <i className="fa fa-circle-plus" />
+                </AddBtn>
+              </BlankArea>
             </TaskList>
           );
         }}
@@ -150,7 +156,53 @@ const Title = styled.div<{ color: string }>`
 `;
 
 const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   background-color: ${(props) => props.theme.dayBgColor};
   cursor: pointer;
+`;
+
+const AddBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  visibility: hidden;
+
+  width: 48px;
+  height: 48px;
+  i {
+    font-size: 36px;
+  }
+
+  ${(props) =>
+    props.color &&
+    css`
+      color: ${props.color};
+    `}
+
+  @media (max-width: 640px) {
+    width: 36px;
+    height: 36px;
+    i {
+      font-size: 24px;
+    }
+  }
+`;
+
+const BlankArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  background-color: ${(props) => props.theme.dayBgColor};
+
+  @media (hover: hover) and (pointer: fine) {
+    padding: 10px 0;
+
+    &:hover ${AddBtn} {
+      visibility: visible;
+    }
+  }
 `;
