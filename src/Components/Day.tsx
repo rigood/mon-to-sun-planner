@@ -81,12 +81,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
       <Droppable droppableId={date}>
         {(provided, snapshot) => {
           return (
-            <TaskList
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-              color={color}
-              isCurrentDay={isCurrentDay}
-            >
+            <TaskList ref={provided.innerRef} {...provided.droppableProps}>
               {currentDateTasks?.map((task, index) => (
                 <Task
                   key={task.id}
@@ -99,12 +94,9 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
               ))}
               {provided.placeholder}
               <BlankArea
+                color={color}
                 onClick={() => openAddTaskModal(snapshot.isDraggingOver)}
-              >
-                <AddBtn color={color}>
-                  <i className="fa fa-circle-plus" />
-                </AddBtn>
-              </BlankArea>
+              ></BlankArea>
             </TaskList>
           );
         }}
@@ -155,7 +147,7 @@ const Title = styled.div<{ color: string }>`
   }
 `;
 
-const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
+const TaskList = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -163,46 +155,12 @@ const TaskList = styled.div<{ color: string; isCurrentDay: boolean }>`
   cursor: pointer;
 `;
 
-const AddBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  visibility: hidden;
-
-  width: 48px;
-  height: 48px;
-  i {
-    font-size: 36px;
-  }
-
-  ${(props) =>
-    props.color &&
-    css`
-      color: ${props.color};
-    `}
-
-  @media (max-width: 640px) {
-    width: 36px;
-    height: 36px;
-    i {
-      font-size: 24px;
-    }
-  }
-`;
-
-const BlankArea = styled.div`
+const BlankArea = styled.div<{
+  color: string;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
   background-color: ${(props) => props.theme.dayBgColor};
-
-  @media (hover: hover) and (pointer: fine) {
-    padding: 10px 0;
-
-    &:hover ${AddBtn} {
-      visibility: visible;
-    }
-  }
 `;
