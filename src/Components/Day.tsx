@@ -49,8 +49,8 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
 
   const { openModal, closeModal } = useModal();
 
-  const openAddTaskModal = (isDraggingOver: boolean) => {
-    if (isDraggingOver) return;
+  const openAddTaskModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
 
     openModal({
       modalType: MODAL_TYPES.ADD_TASK,
@@ -75,7 +75,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
           color={color}
           size="sm"
           mr="5px"
-          onClick={() => openAddTaskModal(false)}
+          onClick={openAddTaskModal}
         />
       </Header>
       <Droppable droppableId={date}>
@@ -95,7 +95,9 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
               {provided.placeholder}
               <BlankArea
                 color={color}
-                onClick={() => openAddTaskModal(snapshot.isDraggingOver)}
+                onClick={
+                  !snapshot.isDraggingOver ? openAddTaskModal : undefined
+                }
               ></BlankArea>
             </TaskList>
           );

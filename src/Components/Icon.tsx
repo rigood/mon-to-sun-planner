@@ -7,7 +7,7 @@ interface IconProps {
   size?: "lg" | "sm";
   mr?: string;
   isHover?: boolean;
-  onClick?: () => void;
+  onClick?: (arg?: any) => void;
 }
 
 function Icon({ icon, color, bgColor, size, mr, isHover, onClick }: IconProps) {
