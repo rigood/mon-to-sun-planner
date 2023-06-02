@@ -2,7 +2,7 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
-  key: "weekly-planner",
+  key: "mon-to-sun-planner",
 });
 
 export interface ITaskState {

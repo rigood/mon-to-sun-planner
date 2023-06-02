@@ -8,6 +8,8 @@ import {
   getDatesOfWeek,
   getPeriodString,
   getLocalTimeString,
+  DAY_COLORS,
+  I_DAY_COLORS,
 } from "./utils/utils";
 import Icon from "./components/Icon";
 import Day from "./components/Day";
@@ -117,8 +119,15 @@ function Main() {
   return (
     <Wrapper>
       <Header>
-        <Title onClick={resetDate} title="현재 날짜로 이동합니다.">
-          Weekly Planner
+        <Title
+          onClick={resetDate}
+          title="현재 날짜로 이동합니다."
+          colors={DAY_COLORS}
+        >
+          {"MON TO SUN ".split("").map((char) => (
+            <span>{char}</span>
+          ))}
+          <span>planner</span>
         </Title>
         <Toolbar>
           <WeekDate>{periodString}</WeekDate>
@@ -203,16 +212,51 @@ const Header = styled.header`
   }
 `;
 
-const Title = styled.h1`
+const Title = styled.h1<{ colors: I_DAY_COLORS }>`
+  width: fit-content;
   font-family: "Montserrat Alternates", sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-style: italic;
+  font-weight: bold;
   margin-bottom: 5px;
   user-select: none;
   cursor: pointer;
 
   @media (max-width: 640px) {
     font-size: 12px;
+  }
+
+  span:nth-child(1) {
+    color: ${(props) => props.colors[0]};
+  }
+
+  span:nth-child(2) {
+    color: ${(props) => props.colors[1]};
+  }
+
+  span:nth-child(3) {
+    color: ${(props) => props.colors[2]};
+  }
+
+  span:nth-child(5) {
+    color: ${(props) => props.colors[3]};
+  }
+
+  span:nth-child(6) {
+    color: ${(props) => props.colors[4]};
+  }
+
+  span:nth-child(8) {
+    color: ${(props) => props.colors[5]};
+  }
+
+  span:nth-child(9) {
+    color: ${(props) => props.colors[6]};
+  }
+
+  span:last-child {
+    font-weight: normal;
+    color: ${(props) => props.theme.hoverColor};
   }
 `;
 

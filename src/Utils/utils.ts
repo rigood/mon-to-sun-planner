@@ -29,6 +29,7 @@ export function getMonday(inputDate: Date) {
   return dateCopy;
 }
 
+// ex) ['2023-05-29', ..., '2023-06-04']
 export function getDatesOfWeek(inputMonday: Date) {
   const dateCopy = new Date(inputMonday);
 
@@ -77,4 +78,41 @@ export function getDateString(date: string) {
   const day = date.split("-")[2].replace(/(^0+)/, "");
 
   return month + "." + day;
+}
+
+export interface I_DAY_COLORS {
+  [key: string]: string;
+}
+
+// 요일별 색상
+export const DAY_COLORS: I_DAY_COLORS = {
+  0: "#E61A73",
+  1: "#EDAE13",
+  2: "#0BBAB3",
+  3: "#0764A1",
+  4: "#25A2DA",
+  5: "#8146C4",
+  6: "#E97EC2",
+};
+
+// 요일 텍스트 및 색상
+export function getDayInfo(index: number) {
+  switch (index) {
+    case 0:
+      return { day: "월요일", color: DAY_COLORS[0] };
+    case 1:
+      return { day: "화요일", color: DAY_COLORS[1] };
+    case 2:
+      return { day: "수요일", color: DAY_COLORS[2] };
+    case 3:
+      return { day: "목요일", color: DAY_COLORS[3] };
+    case 4:
+      return { day: "금요일", color: DAY_COLORS[4] };
+    case 5:
+      return { day: "토요일", color: DAY_COLORS[5] };
+    case 6:
+      return { day: "일요일", color: DAY_COLORS[6] };
+    default:
+      return { day: "언젠가", color: "#000000" };
+  }
 }

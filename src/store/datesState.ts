@@ -3,7 +3,7 @@ import { recoilPersist } from "recoil-persist";
 import { getLocalTimeString } from "../utils/utils";
 
 const { persistAtom } = recoilPersist({
-  key: "weekly-planner",
+  key: "mon-to-sun-planner",
 });
 
 export interface IDateState {

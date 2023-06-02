@@ -1,11 +1,11 @@
-# 📅 Weekly Planner
+# 📅 MON TO SUN Planner (먼투썬 플래너)
 
 목업 이미지 삽입
 
 </br>
 
-> [🚀 Weekly Planner 바로가기](https://rigood.github.io/weekly-planner)  
-> Weekly Planner 간략한 설명
+> [🚀 MON TO SUN Planner 바로가기](https://rigood.github.io/mon-to-sun-planner)  
+> MON TO SUN Planner 간략한 설명
 
 </br>
 
