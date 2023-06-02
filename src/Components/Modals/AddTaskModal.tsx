@@ -146,6 +146,7 @@ const Content = styled.textarea`
   margin-bottom: 20px;
   font-family: inherit;
   font-size: inherit;
+  height: 120px;
   padding: 10px;
   background-color: ${(props) => props.color + "10"};
   border: none;

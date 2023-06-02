@@ -102,6 +102,7 @@ const Content = styled.div`
   cursor: pointer;
   word-break: break-all;
   word-wrap: break-word;
+  white-space: pre;
 `;
 
 const EditBtn = styled.div`

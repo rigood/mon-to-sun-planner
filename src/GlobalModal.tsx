@@ -86,7 +86,7 @@ const Content = styled.div`
   margin: auto;
   width: 90%;
   max-width: 500px;
-  height: 400px;
+  height: fit-content;
   background-color: ${(props) => props.theme.modalBgColor};
   outline: 5px solid ${(props) => props.color};
   z-index: 9999;
