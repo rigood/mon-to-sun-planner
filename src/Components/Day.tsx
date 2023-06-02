@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
 import { useRecoilValue } from "recoil";
 import { datesState } from "../store/datesState";
@@ -26,7 +26,7 @@ function getDayInfo(index: number) {
     case 6:
       return { day: "일요일", color: "#E97EC2" };
     default:
-      return { day: "", color: "#000000" };
+      return { day: "언젠가", color: "#000000" };
   }
 }
 
@@ -68,7 +68,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
       <Header color={color}>
         <Title color={color}>
           <strong>{isCurrentDay ? `✨ ${day} ✨` : day}</strong>
-          <span>{getDateString(date)}</span>
+          {date !== "9999-99-99" && <span>{getDateString(date)}</span>}
         </Title>
         <Icon
           icon="fa fa-plus"

@@ -156,14 +156,17 @@ function Main() {
       </Header>
       <DragDropContext onDragEnd={onDragEnd}>
         <Planner>
-          {datesOfWeek.map((date, index) => (
-            <Day
-              key={date}
-              date={date}
-              index={index}
-              isCurrentDay={getLocalTimeString(currentDay) === date}
-            />
-          ))}
+          <>
+            {datesOfWeek.map((date, index) => (
+              <Day
+                key={date}
+                date={date}
+                index={index}
+                isCurrentDay={getLocalTimeString(currentDay) === date}
+              />
+            ))}
+            <Day date="9999-99-99" index={7} isCurrentDay={false} />
+          </>
         </Planner>
       </DragDropContext>
     </Wrapper>
