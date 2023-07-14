@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { getLocalTimeString } from "../utils/utils";
+import { getDateFormat } from "../utils/utils";
 
 const { persistAtom } = recoilPersist({
   key: "mon-to-sun-planner",
@@ -13,7 +13,7 @@ export interface IDateState {
   };
 }
 
-const today = getLocalTimeString(new Date());
+const today = getDateFormat(new Date());
 
 export const datesState = atom<IDateState>({
   key: "dates",

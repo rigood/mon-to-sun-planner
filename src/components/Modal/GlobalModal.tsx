@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import ReactDom from "react-dom";
-import styled, { keyframes } from "styled-components";
 import { useRecoilState } from "recoil";
-import { modalState } from "./store/modalState";
-import AddTaskModal from "./components/Modals/AddTaskModal";
-import EditTaskModal from "./components/Modals/EditTaskModal";
+import styled, { keyframes } from "styled-components";
+import { modalState } from "../../store/modalState";
+import AddTaskModal from "./AddTaskModal";
+import EditTaskModal from "./EditTaskModal";
 
 export const MODAL_TYPES = {
   ADD_TASK: "ADD_TASK",

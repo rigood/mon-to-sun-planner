@@ -1,21 +1,22 @@
-import styled from "styled-components";
-import { Droppable } from "react-beautiful-dnd";
 import { useRecoilValue } from "recoil";
-import { datesState } from "../store/datesState";
-import { tasksState } from "../store/tasksState";
-import useModal from "../hooks/useModal";
-import { MODAL_TYPES } from "../GlobalModal";
-import { getDateString, getDayInfo } from "../utils/utils";
-import Icon from "./Icon";
-import Task from "./Task";
+import { Droppable } from "react-beautiful-dnd";
+import styled from "styled-components";
+import useModal from "../../hooks/useModal";
+import { datesState } from "../../store/datesState";
+import { tasksState } from "../../store/tasksState";
+import { getDateString, getDayInfo } from "../../utils/utils";
+import { MODAL_TYPES } from "../Modal/GlobalModal";
+import Icon from "../common/Icon/Icon";
+import Task from "../Task/Task";
+import TaskCreator from "../Task/TaskCreator";
 
 interface IDayProps {
   date: string;
   index: number;
-  isCurrentDay: boolean;
+  isToday?: boolean;
 }
 
-function Day({ date, index, isCurrentDay }: IDayProps) {
+function Day({ date, index, isToday }: IDayProps) {
   const { day, color } = getDayInfo(index);
 
   const allDates = useRecoilValue(datesState);
@@ -27,10 +28,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
   );
 
   const { openModal, closeModal } = useModal();
-
-  const openAddTaskModal = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
+  const openAddTaskModal = () =>
     openModal({
       modalType: MODAL_TYPES.ADD_TASK,
       modalProps: {
@@ -40,13 +38,12 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
         closeModal,
       },
     });
-  };
 
   return (
     <Wrapper>
       <Header color={color}>
         <Title color={color}>
-          <strong>{isCurrentDay ? `✨ ${day} ✨` : day}</strong>
+          <strong>{isToday ? `✨${day}✨(Today)` : day}</strong>
           {date !== "9999-99-99" && <span>{getDateString(date)}</span>}
         </Title>
         <Icon
@@ -58,7 +55,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
         />
       </Header>
       <Droppable droppableId={date}>
-        {(provided, snapshot) => {
+        {(provided) => {
           return (
             <TaskList ref={provided.innerRef} {...provided.droppableProps}>
               {currentDateTasks?.map((task, index) => (
@@ -72,12 +69,7 @@ function Day({ date, index, isCurrentDay }: IDayProps) {
                 />
               ))}
               {provided.placeholder}
-              <BlankArea
-                color={color}
-                onClick={
-                  !snapshot.isDraggingOver ? openAddTaskModal : undefined
-                }
-              ></BlankArea>
+              <TaskCreator date={date} color={color} />
             </TaskList>
           );
         }}
@@ -132,16 +124,4 @@ const TaskList = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  background-color: ${(props) => props.theme.dayBgColor};
-  cursor: pointer;
-`;
-
-const BlankArea = styled.div<{
-  color: string;
-}>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  background-color: ${(props) => props.theme.dayBgColor};
 `;

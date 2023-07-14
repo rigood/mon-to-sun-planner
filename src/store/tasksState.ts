@@ -9,7 +9,8 @@ export interface ITaskState {
   [key: string]: {
     id: string;
     isDone: boolean;
-    content: string;
+    title: string;
+    memo?: string;
   };
 }
 
@@ -19,22 +20,22 @@ export const tasksState = atom<ITaskState>({
     "task-1": {
       id: "task-1",
       isDone: true,
-      content: "프로젝트 리팩토링",
+      title: "프로젝트 리팩토링",
     },
     "task-2": {
       id: "task-2",
       isDone: false,
-      content: "헬스장 다녀오기",
+      title: "헬스장 다녀오기",
     },
     "task-3": {
       id: "task-3",
       isDone: false,
-      content: "모던JS 딥다이브 정리",
+      title: "모던JS 딥다이브 정리",
     },
     "task-4": {
       id: "task-4",
       isDone: true,
-      content: "콘서트 티켓팅",
+      title: "콘서트 티켓팅",
     },
   },
   effects_UNSTABLE: [persistAtom],

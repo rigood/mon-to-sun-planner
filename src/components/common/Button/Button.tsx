@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   text-align: center;
   min-width: 100px;
   padding: 6px 10px;
-  background-color: ${(props) => props.color || props.theme.buttonBgColor};
+  background-color: ${(props) => props.color || props.theme.delBtnBgColor};
   color: white;
   cursor: pointer;
 `;

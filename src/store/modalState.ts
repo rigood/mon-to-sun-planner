@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { MODAL_TYPES } from "../GlobalModal";
+import { MODAL_TYPES } from "../components/Modal/GlobalModal";
 
 export type TAddTaskModal = {
   modalType: typeof MODAL_TYPES.ADD_TASK;

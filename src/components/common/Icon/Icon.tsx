@@ -84,7 +84,7 @@ ${(props) =>
     css`
       @media (hover: hover) and (pointer: fine) {
         &:hover {
-          color: ${(props) => props.theme.hoverColor};
+          color: ${(props) => props.theme.iconHoverColor};
         }
       }
     `}

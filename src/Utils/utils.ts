@@ -1,50 +1,50 @@
-export function getMonday(inputDate: Date) {
-  const dateCopy = new Date(inputDate);
-  const date = dateCopy.getDate();
-  const day = dateCopy.getDay();
+export function getMondayObj(inputDate: Date) {
+  const dateObj = new Date(inputDate);
+  const currentDate = dateObj.getDate();
+  const currentDay = dateObj.getDay();
 
-  switch (day) {
+  switch (currentDay) {
     case 0: // 일요일
-      dateCopy.setDate(date - 6);
+      dateObj.setDate(currentDate - 6);
       break;
     case 1: // 월요일
       break;
     case 2: // 화요일
-      dateCopy.setDate(date - 1);
+      dateObj.setDate(currentDate - 1);
       break;
     case 3: // 수요일
-      dateCopy.setDate(date - 2);
+      dateObj.setDate(currentDate - 2);
       break;
     case 4: // 목요일
-      dateCopy.setDate(date - 3);
+      dateObj.setDate(currentDate - 3);
       break;
     case 5: // 금요일
-      dateCopy.setDate(date - 4);
+      dateObj.setDate(currentDate - 4);
       break;
     case 6: // 토요일
-      dateCopy.setDate(date - 5);
+      dateObj.setDate(currentDate - 5);
       break;
   }
 
-  return dateCopy;
+  return dateObj;
 }
 
-// ex) ['2023-05-29', ..., '2023-06-04']
-export function getDatesOfWeek(inputMonday: Date) {
-  const dateCopy = new Date(inputMonday);
+// ['2023-05-29', ..., '2023-06-04']
+export function getDatesFormatOfWeek(inputDate: Date) {
+  const dateObj = getMondayObj(inputDate);
 
-  let result = [];
+  let datesFormatOfWeek = [];
 
   for (let i = 0; i < 7; i++) {
-    result.push(getLocalTimeString(dateCopy));
-    dateCopy.setDate(dateCopy.getDate() + 1);
+    datesFormatOfWeek.push(getDateFormat(dateObj));
+    dateObj.setDate(dateObj.getDate() + 1);
   }
 
-  return result;
+  return datesFormatOfWeek;
 }
 
-// ex) 2023-05-31
-export function getLocalTimeString(inputDate: Date) {
+// 2023-05-31
+export function getDateFormat(inputDate: Date) {
   const year = inputDate.getFullYear();
   const month = inputDate.getMonth() + 1;
   const date = inputDate.getDate();
@@ -59,9 +59,9 @@ export function getLocalTimeString(inputDate: Date) {
 }
 
 // ex) 5.29 ~ 6.4
-export function getPeriodString(datesOfWeek: string[]) {
-  const startDate = datesOfWeek[0];
-  const endDate = datesOfWeek[6];
+export function getPeriodString(datesFormatOfWeek: string[]) {
+  const startDate = datesFormatOfWeek[0];
+  const endDate = datesFormatOfWeek[6];
 
   const startMonth = startDate.split("-")[1].replace(/(^0+)/, "");
   const startDay = startDate.split("-")[2].replace(/(^0+)/, "");
@@ -72,12 +72,12 @@ export function getPeriodString(datesOfWeek: string[]) {
   return startMonth + "." + startDay + " ~ " + endMonth + "." + endDay;
 }
 
-// ex) 5.31
-export function getDateString(date: string) {
-  const month = date.split("-")[1].replace(/(^0+)/, "");
-  const day = date.split("-")[2].replace(/(^0+)/, "");
+// ex) 5/31
+export function getDateString(inputDate: string) {
+  const month = inputDate.split("-")[1].replace(/(^0+)/, "");
+  const day = inputDate.split("-")[2].replace(/(^0+)/, "");
 
-  return month + "." + day;
+  return month + "/" + day;
 }
 
 export interface I_DAY_COLORS {

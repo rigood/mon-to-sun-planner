@@ -1,13 +1,13 @@
 import { DefaultTheme } from "styled-components";
 
-export const lightTheme: DefaultTheme = {
+export const theme: DefaultTheme = {
   bgColor: "#ffffff",
+  appTitleColor: "#000000",
   textColor: "#000000",
   subTextColor: "#cccccc",
-  appTitleColor: "#000000",
-  dayBgColor: "#f8f9fa",
+  isDoneColor: "#00000033",
   lineColor: "#e9ecef",
-  hoverColor: "#d9d9d9",
+  iconHoverColor: "#d9d9d9",
   modalBgColor: "	#ffffff",
-  buttonBgColor: "red",
+  delBtnBgColor: "red",
 };

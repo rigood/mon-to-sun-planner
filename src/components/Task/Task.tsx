@@ -1,16 +1,17 @@
 import React from "react";
-import styled, { css } from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
-import { useSetRecoilState } from "recoil";
-import { tasksState } from "../store/tasksState";
-import useModal from "../hooks/useModal";
-import { MODAL_TYPES } from "../GlobalModal";
+import styled, { css } from "styled-components";
+import useTask from "../../hooks/useTask";
+import useModal from "../../hooks/useModal";
+import { MODAL_TYPES } from "../Modal/GlobalModal";
+import MiniButton from "../common/Button/MiniButton";
 
 interface ITaskProps {
   task: {
     id: string;
     isDone: boolean;
-    content: string;
+    title: string;
+    memo?: string;
   };
   index: number;
   date: string;
@@ -19,31 +20,10 @@ interface ITaskProps {
 }
 
 function Task({ task, index, date, day, color }: ITaskProps) {
-  const { id, isDone, content } = task;
-
-  const setTasks = useSetRecoilState(tasksState);
-
-  const toggleIsDone = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
-    setTasks((allTasks) => {
-      const currentTask = allTasks[id];
-
-      return {
-        ...allTasks,
-        [id]: {
-          ...currentTask,
-          isDone: !currentTask.isDone,
-        },
-      };
-    });
-  };
+  const { id, isDone, title, memo } = task;
 
   const { openModal, closeModal } = useModal();
-
-  const openEditTaskModal = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
+  const openEditTaskModal = () =>
     openModal({
       modalType: MODAL_TYPES.EDIT_TASK,
       modalProps: {
@@ -52,11 +32,15 @@ function Task({ task, index, date, day, color }: ITaskProps) {
         day,
         color,
         index,
-        content,
+        title,
+        memo,
         closeModal,
       },
     });
-  };
+
+  const { toggleIsDone, deleteTask } = useTask();
+  const handleToggleIsDone = () => toggleIsDone(id);
+  const handleDeleteTask = () => deleteTask(date, id, index);
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -68,17 +52,17 @@ function Task({ task, index, date, day, color }: ITaskProps) {
             {...provided.dragHandleProps}
             isDone={isDone}
             color={color}
-            onClick={toggleIsDone}
           >
-            <IsDoneCheckBox>
+            <IsDoneCheckBox onClick={handleToggleIsDone}>
               <i
                 className={isDone ? "fa fa-square-check" : "far fa-square"}
               ></i>
             </IsDoneCheckBox>
-            <Content>{content}</Content>
-            <EditBtn onClick={openEditTaskModal}>
-              <i className="fa fa-pencil" />
-            </EditBtn>
+            <Title onClick={openEditTaskModal}>{title}</Title>
+            <Buttons>
+              <MiniButton onClick={openEditTaskModal} icon="fa fa-pencil" />
+              <MiniButton onClick={handleDeleteTask} icon="fa fa-trash" />
+            </Buttons>
           </Wrapper>
         );
       }}
@@ -91,28 +75,24 @@ export default React.memo(Task);
 const IsDoneCheckBox = styled.div`
   margin-right: 10px;
   cursor: pointer;
+
   i {
     font-size: 14px;
   }
 `;
 
-const Content = styled.div`
+const Title = styled.div`
   flex-grow: 1;
   font-size: 14px;
-  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
   word-break: break-all;
-  word-wrap: break-word;
-  white-space: pre;
+  white-space: nowrap;
+  cursor: pointer;
 `;
 
-const EditBtn = styled.div`
-  margin-left: 5px;
-  padding: 0 5px;
-  cursor: pointer;
-
-  i {
-    font-size: 14px;
-  }
+const Buttons = styled.div`
+  display: flex;
 
   @media (hover: hover) and (pointer: fine) {
     visibility: hidden;
@@ -121,7 +101,8 @@ const EditBtn = styled.div`
 
 const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   display: flex;
-  align-items: start;
+  justify-content: space-between;
+  align-items: center;
   padding: 12px 10px;
   background-color: white;
   border-bottom: 1px solid ${(props) => props.theme.lineColor};
@@ -130,9 +111,9 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
   ${(props) =>
     props.isDone &&
     css`
-      color: rgba(0, 0, 0, 0.2);
+      color: ${props.theme.isDoneColor};
 
-      ${Content} {
+      ${Title} {
         text-decoration: line-through;
       }
     `};
@@ -141,7 +122,7 @@ const Wrapper = styled.div<{ isDone: boolean; color: string }>`
     &:hover {
       border-bottom-color: ${(props) => props.color};
 
-      ${EditBtn} {
+      ${Buttons} {
         visibility: visible;
         cursor: pointer;
       }
